@@ -9,7 +9,6 @@ import {
   Headphones,
   Landmark,
   Mail,
-  Map,
   MessageSquareWarning,
   Radio,
   Search,
@@ -593,19 +592,29 @@ export default function HelpPage() {
                       >
                         <ArrowLeft className="h-5 w-5" />
                       </Button>
-                      <h2 className="font-semibold text-lg">Problemas con un pedido</h2>
+                      <h2 className="font-semibold text-lg">El repartidor se llevó una orden equivocada</h2>
                     </div>
-                    <div className="p-6 flex-grow flex flex-col items-center justify-center text-center bg-background">
-                      <div className="bg-primary/10 p-5 rounded-full mb-6">
-                        <Bike className="h-10 w-10 text-primary" />
+                    <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                      <div className="space-y-4 text-muted-foreground">
+                        <p>Lamentamos los inconvenientes. 😳</p>
+                        <p>Te brindamos algunas recomendaciones importantes para evitar estos problemas en próximas ocasiones.</p>
+                        
+                        <div className="space-y-2 pt-2">
+                          <p className="font-bold text-card-foreground">¿Qué hacer antes de entregar el pedido al repartidor?</p>
+                          <p>Debes asegurarte que el número de orden de quien retira el pedido coincida y que marque como "retirado" el pedido.</p>
+                          <p>Verifica que los productos, precios y cantidades coinciden con lo que figura en la orden.</p>
+                          <p>Asegúrate de que el paquete se encuentra correctamente cerrado para que no se muevan los productos.</p>
+                        </div>
+                        
+                        <p className="pt-2">Recuerda que el cliente al contactarse con Atención en Línea recibirá una rápida solución de parte de nuestro equipo especializado por lo que no deberás preocuparte por esto.</p>
                       </div>
-                      <h3 className="font-bold text-xl mb-2">¡No te preocupes!</h3>
-                      <p className="text-muted-foreground">
-                        Nos pondremos en contacto con el repartidor para que vuelva a buscar la orden correcta.
-                      </p>
                     </div>
-                    <div className="p-6 border-t mt-auto bg-background">
-                        <Button className="w-full" size="lg">Contactar al repartidor</Button>
+                    <div className="p-6 border-t mt-auto bg-background space-y-3">
+                      <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                      <div className="flex flex-col gap-2">
+                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                      </div>
                     </div>
                   </div>
               )}
