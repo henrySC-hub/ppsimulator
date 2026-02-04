@@ -16,6 +16,7 @@ import {
   TrendingUp,
   User,
   UserCog,
+  ArrowLeft,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -92,17 +93,18 @@ const portalTips = [
 ];
 
 export default function HelpPage() {
+  const [sheetView, setSheetView] = React.useState('main');
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
 
   const onlineHelpTopics = [
-    { icon: Mail, text: 'Seguimiento de mis solicitudes', href: '#' },
-    { icon: ArchiveX, text: 'Problemas con un pedido', href: '#' },
-    { icon: CreditCard, text: 'Finanzas', href: '#' },
-    { icon: User, text: 'Administración de mi local', href: '#' },
-    { icon: Radio, text: 'Soporte técnico', href: '#' },
-    { icon: Trophy, text: 'Programa Socios', href: '#' },
+    { id: 'tracking', icon: Mail, text: 'Seguimiento de mis solicitudes' },
+    { id: 'issues', icon: ArchiveX, text: 'Problemas con un pedido' },
+    { id: 'finance', icon: CreditCard, text: 'Finanzas' },
+    { id: 'admin', icon: User, text: 'Administración de mi local' },
+    { id: 'support', icon: Radio, text: 'Soporte técnico' },
+    { id: 'partners', icon: Trophy, text: 'Programa Socios' },
   ];
 
   return (
@@ -110,7 +112,7 @@ export default function HelpPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Ayuda</h1>
-          <Sheet>
+          <Sheet onOpenChange={(open) => !open && setSheetView('main')}>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
@@ -120,33 +122,72 @@ export default function HelpPage() {
                 Ayuda en línea
               </Button>
             </SheetTrigger>
-            <SheetContent className="w-full max-w-md sm:max-w-lg">
-              <SheetHeader>
-                <SheetTitle className="text-2xl font-bold">
-                  Ayuda en línea
-                </SheetTitle>
-              </SheetHeader>
-              <div className="pt-6 pb-4">
-                <p className="text-lg mb-6">
-                  <span className="font-bold">¡Hola! 👋</span> Te damos la
-                  bienvenida a Ayuda en Línea.
-                </p>
-                <ul className="flex flex-col">
-                  {onlineHelpTopics.map((topic, index) => (
-                    <li key={topic.text}>
-                      <Link
-                        href={topic.href}
-                        className="flex items-center py-4 text-base font-medium"
-                      >
-                        <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
-                        <span className="flex-grow">{topic.text}</span>
-                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                      </Link>
-                      {index < onlineHelpTopics.length - 1 && <Separator />}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <SheetContent className="w-full max-w-md sm:max-w-lg p-0">
+              {sheetView === 'main' && (
+                <div className="p-6">
+                  <SheetHeader>
+                    <SheetTitle className="text-2xl font-bold">
+                      Ayuda en línea
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="pt-6 pb-4">
+                    <p className="text-lg mb-6">
+                      <span className="font-bold">¡Hola! 👋</span> Te damos la
+                      bienvenida a Ayuda en Línea.
+                    </p>
+                    <ul className="flex flex-col">
+                      {onlineHelpTopics.map((topic, index) => (
+                        <li key={topic.text}>
+                          <button
+                            onClick={() => {
+                              if (topic.id === 'tracking') {
+                                setSheetView('tracking');
+                              }
+                            }}
+                            className="w-full text-left disabled:opacity-50"
+                            disabled={topic.id !== 'tracking'}
+                          >
+                            <div className="flex items-center py-4 text-base font-medium">
+                              <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
+                              <span className="flex-grow">{topic.text}</span>
+                              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                          </button>
+                          {index < onlineHelpTopics.length - 1 && (
+                            <Separator />
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'tracking' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14 shrink-0"
+                      onClick={() => setSheetView('main')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Seguimiento de mis solicitudes
+                    </h2>
+                  </div>
+                  <div className="flex-grow flex flex-col items-center justify-center text-center p-6 bg-background">
+                    <div className="bg-muted p-5 rounded-full mb-6">
+                      <Mail className="h-10 w-10 text-muted-foreground" />
+                    </div>
+                    <p className="font-bold text-lg mb-1">¡Excelente!</p>
+                    <p className="text-muted-foreground">
+                      No tienes consultas recientes
+                    </p>
+                  </div>
+                </div>
+              )}
             </SheetContent>
           </Sheet>
         </header>
