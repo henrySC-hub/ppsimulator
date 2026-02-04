@@ -35,7 +35,7 @@ export function SiteHeader() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-          <Link href="/help" passHref>
+          <Link href="/help" target="_blank" rel="noopener noreferrer">
             <Button variant="outline" className="rounded-full">
               <HelpCircle className="h-4 w-4 mr-2" />
               Ayuda
