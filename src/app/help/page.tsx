@@ -394,50 +394,44 @@ export default function HelpPage() {
                       <ArrowLeft className="h-5 w-5" />
                     </Button>
                     <h2 className="font-semibold text-lg">
-                      Problemas con un pedido terminado
+                      Problemas con un pedido
                     </h2>
                   </div>
-                  <div className="p-6 flex-grow space-y-6">
-                    <div className="space-y-1">
-                      <p className="font-semibold text-card-foreground">
-                        Pedido #{selectedOrder.orderNumber}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {selectedOrder.date}
-                      </p>
-                    </div>
-                    <Separator />
-                    <RadioGroup
-                      defaultValue="repartidor-problema"
-                      className="space-y-4"
-                    >
-                      <h3 className="font-semibold">
-                        ¿Con quién fue el problema?
-                      </h3>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="repartidor-problema" id="f1" />
-                        <Label htmlFor="f1">
-                          El repartidor tuvo un problema
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="cliente-problema" id="f2" />
-                        <Label htmlFor="f2">El cliente tuvo un problema</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="yo-problema" id="f3" />
-                        <Label htmlFor="f3">Yo tuve un problema</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="otro-problema" id="f4" />
-                        <Label htmlFor="f4">Otro motivo</Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-                  <div className="p-6 border-t mt-auto">
-                    <Button className="w-full" size="lg">
-                      Continuar
-                    </Button>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      <li>
+                        <button className="w-full text-left">
+                          <div className="flex items-center py-4 px-6 text-base font-medium">
+                            <span className="flex-grow">
+                              Relacionados al repartidor
+                            </span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                      <li>
+                        <button className="w-full text-left">
+                          <div className="flex items-center py-4 px-6 text-base font-medium">
+                            <span className="flex-grow">
+                              Relacionados a mi local
+                            </span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                      <li>
+                        <button className="w-full text-left">
+                          <div className="flex items-center py-4 px-6 text-base font-medium">
+                            <span className="flex-grow">
+                              Relacionados al usuario
+                            </span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               )}
