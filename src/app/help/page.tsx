@@ -30,7 +30,16 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
@@ -94,8 +103,17 @@ const portalTips = [
   },
 ];
 
+type Order = {
+  id: number;
+  orderNumber: string;
+  date: string;
+  price: string;
+  status: 'Terminado' | 'Cancelado';
+};
+
 export default function HelpPage() {
   const [sheetView, setSheetView] = React.useState('main');
+  const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
@@ -109,7 +127,7 @@ export default function HelpPage() {
     { id: 'partners', icon: Trophy, text: 'Programa Socios' },
   ];
 
-  const orders = [
+  const orders: Order[] = [
     {
       id: 14,
       orderNumber: '1883628713',
@@ -138,42 +156,30 @@ export default function HelpPage() {
       price: '$10.280',
       status: 'Cancelado',
     },
-    {
-      id: 10,
-      orderNumber: '1883273929',
-      date: '01-02-2026, 11:17 a. m.',
-      price: '$23.290',
-      status: 'Terminado',
-    },
-    {
-      id: 9,
-      orderNumber: '1883273017',
-      date: '01-02-2026, 11:12 a. m.',
-      price: '$27.890',
-      status: 'Cancelado',
-    },
-    {
-      id: 8,
-      orderNumber: '1883273016',
-      date: '01-02-2026, 11:05 a. m.',
-      price: '$15.500',
-      status: 'Terminado',
-    },
-    {
-      id: 7,
-      orderNumber: '1883273015',
-      date: '01-02-2026, 10:55 a. m.',
-      price: '$5.250',
-      status: 'Cancelado',
-    },
   ];
+
+  const handleOrderClick = (order: Order) => {
+    setSelectedOrder(order);
+    if (order.status === 'Cancelado') {
+      setSheetView('issue-detail-canceled');
+    } else {
+      setSheetView('issue-detail-finished');
+    }
+  };
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Ayuda</h1>
-          <Sheet onOpenChange={(open) => !open && setSheetView('main')}>
+          <Sheet
+            onOpenChange={(open) => {
+              if (!open) {
+                setSheetView('main');
+                setSelectedOrder(null);
+              }
+            }}
+          >
             <SheetTrigger asChild>
               <Button
                 variant="outline"
@@ -265,71 +271,174 @@ export default function HelpPage() {
                     </h2>
                   </div>
 
-                  <div className="p-4 border-b shrink-0">
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="rounded-full"
-                      >
-                        Todas
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="rounded-full"
-                      >
-                        Hoy
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="rounded-full"
-                      >
-                        Ayer
-                      </Button>
-                    </div>
+                  <div className="p-4 border-b shrink-0 space-y-2">
+                    <Label>Fecha</Label>
+                    <Select defaultValue="todas">
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="todas">Todas</SelectItem>
+                        <SelectItem value="hoy">Hoy</SelectItem>
+                        <SelectItem value="ayer">Ayer</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <ScrollArea className="flex-grow bg-background">
                     <div className="p-4 space-y-3">
                       {orders.map((order) => (
-                        <div
+                        <button
                           key={order.id}
-                          className="border rounded-lg p-4 bg-card"
+                          className="w-full text-left"
+                          onClick={() => handleOrderClick(order)}
                         >
-                          <div className="flex justify-between items-start">
-                            <div className="space-y-1">
-                              <p className="text-sm text-muted-foreground">
-                                #{order.id}
-                              </p>
-                              <p className="font-semibold text-card-foreground">
-                                {order.orderNumber}
-                              </p>
-                              <p className="text-sm text-muted-foreground">
-                                {order.date}
-                              </p>
-                            </div>
-                            <div className="text-right flex flex-col justify-between items-end h-full space-y-1">
-                              <Badge
-                                className={cn(
-                                  'capitalize text-xs font-semibold',
-                                  order.status === 'Terminado'
-                                    ? 'bg-green-100 text-green-800 border-transparent hover:bg-green-100'
-                                    : 'bg-red-100 text-red-800 border-transparent hover:bg-red-100'
-                                )}
-                              >
-                                {order.status}
-                              </Badge>
-                              <p className="font-semibold pt-4 text-card-foreground">
-                                {order.price}
-                              </p>
+                          <div className="border rounded-lg p-4 bg-card hover:bg-muted">
+                            <div className="flex justify-between items-start">
+                              <div className="space-y-1">
+                                <p className="text-sm text-muted-foreground">
+                                  #{order.id}
+                                </p>
+                                <p className="font-semibold text-card-foreground">
+                                  {order.orderNumber}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {order.date}
+                                </p>
+                              </div>
+                              <div className="text-right flex flex-col justify-between items-end h-full space-y-1">
+                                <Badge
+                                  className={cn(
+                                    'capitalize text-xs font-semibold',
+                                    order.status === 'Terminado'
+                                      ? 'bg-green-100 text-green-800 border-transparent hover:bg-green-100'
+                                      : 'bg-red-100 text-red-800 border-transparent hover:bg-red-100'
+                                  )}
+                                >
+                                  {order.status}
+                                </Badge>
+                                <p className="font-semibold pt-4 text-card-foreground">
+                                  {order.price}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </ScrollArea>
+                </div>
+              )}
+              {sheetView === 'issue-detail-canceled' && selectedOrder && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('issues')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Problemas con un pedido cancelado
+                    </h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6">
+                    <div className="space-y-1">
+                      <p className="font-semibold text-card-foreground">
+                        Pedido #{selectedOrder.orderNumber}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {selectedOrder.date}
+                      </p>
+                    </div>
+                    <Separator />
+                    <RadioGroup
+                      defaultValue="cliente-cancelo"
+                      className="space-y-4"
+                    >
+                      <h3 className="font-semibold">
+                        ¿Cuál fue el motivo de la cancelación?
+                      </h3>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="cliente-cancelo" id="r1" />
+                        <Label htmlFor="r1">El cliente canceló el pedido</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yo-cancele" id="r2" />
+                        <Label htmlFor="r2">Yo cancelé el pedido</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="otro" id="r3" />
+                        <Label htmlFor="r3">Otro motivo</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="p-6 border-t mt-auto">
+                    <Button className="w-full" size="lg">
+                      Continuar
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'issue-detail-finished' && selectedOrder && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('issues')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Problemas con un pedido terminado
+                    </h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6">
+                    <div className="space-y-1">
+                      <p className="font-semibold text-card-foreground">
+                        Pedido #{selectedOrder.orderNumber}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {selectedOrder.date}
+                      </p>
+                    </div>
+                    <Separator />
+                    <RadioGroup
+                      defaultValue="repartidor-problema"
+                      className="space-y-4"
+                    >
+                      <h3 className="font-semibold">
+                        ¿Con quién fue el problema?
+                      </h3>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="repartidor-problema" id="f1" />
+                        <Label htmlFor="f1">
+                          El repartidor tuvo un problema
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="cliente-problema" id="f2" />
+                        <Label htmlFor="f2">El cliente tuvo un problema</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yo-problema" id="f3" />
+                        <Label htmlFor="f3">Yo tuve un problema</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="otro-problema" id="f4" />
+                        <Label htmlFor="f4">Otro motivo</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="p-6 border-t mt-auto">
+                    <Button className="w-full" size="lg">
+                      Continuar
+                    </Button>
+                  </div>
                 </div>
               )}
             </SheetContent>
