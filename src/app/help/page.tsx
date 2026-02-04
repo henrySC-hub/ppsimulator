@@ -608,13 +608,29 @@ export default function HelpPage() {
                         
                         <p className="pt-2">Recuerda que el cliente al contactarse con Atención en Línea recibirá una rápida solución de parte de nuestro equipo especializado por lo que no deberás preocuparte por esto.</p>
                       </div>
-                    </div>
-                    <div className="p-6 border-t mt-auto bg-background space-y-3">
-                      <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
-                      <div className="flex flex-col gap-2">
-                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
-                      </div>
+                      <Separator />
+                       <div>
+                         <p className="font-semibold text-card-foreground mb-2">¿Te sirvió la información?</p>
+                         <ul className="flex flex-col">
+                           <li>
+                             <button className="w-full text-left">
+                               <div className="flex items-center justify-between py-2 text-base font-medium">
+                                 <span>Sí</span>
+                                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                               </div>
+                             </button>
+                             <Separator />
+                           </li>
+                           <li>
+                             <button className="w-full text-left">
+                               <div className="flex items-center justify-between py-2 text-base font-medium">
+                                 <span>No</span>
+                                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                               </div>
+                             </button>
+                           </li>
+                         </ul>
+                       </div>
                     </div>
                   </div>
               )}
@@ -707,8 +723,8 @@ export default function HelpPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {popularArticles.map((article) => (
               <Card key={article.title} className="p-6">
-                <CardTitle as="h4" className="text-lg font-bold mb-2">{article.title}</CardTitle>
-                <CardDescription>{article.description}</CardDescription>
+                <CardTitle as="h3" className="text-lg font-bold mb-2">{article.title}</CardTitle>
+                <CardDescription as="p">{article.description}</CardDescription>
                 <Link
                   href={article.href}
                   className="text-primary font-semibold mt-4 inline-block"
@@ -741,8 +757,8 @@ export default function HelpPage() {
                       />
                     </div>
                   )}
-                  <CardTitle as="h4" className="text-lg font-bold mb-2">{tip.title}</CardTitle>
-                  <CardDescription className="mb-4">
+                  <CardTitle as="h3" className="text-lg font-bold mb-2">{tip.title}</CardTitle>
+                  <CardDescription as="p" className="mb-4">
                     {tip.description}
                   </CardDescription>
                   <Button
