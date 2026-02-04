@@ -1,12 +1,16 @@
 'use client';
 
 import {
+  ArchiveX,
   ChevronRight,
   Headphones,
   Landmark,
+  LifeBuoy,
+  Mail,
   Search,
   ShieldCheck,
   Star,
+  Trophy,
   TrendingUp,
   User,
   UserCog,
@@ -85,31 +89,19 @@ const portalTips = [
   },
 ];
 
-const onlineHelpTopics = [
-  { text: 'Tengo un problema con un pedido en curso', href: '#' },
-  {
-    text: 'Quiero reportar un problema con un pedido entregado',
-    href: '#',
-  },
-  { text: 'Quiero cancelar un pedido', href: '#' },
-  { text: 'Quiero cerrar mi local temporalmente', href: '#' },
-  {
-    text: 'Tengo un problema con el Portal o con el Gestor de pedidos',
-    href: '#',
-  },
-  { text: 'Quiero cambiar la información de mi local', href: '#' },
-  { text: 'Quiero cambiar los datos de mi cuenta', href: '#' },
-  {
-    text: 'Tengo un problema con el pago o la facturación de mi comisión',
-    href: '#',
-  },
-  { text: 'Quiero dar de baja mi local', href: '#' },
-];
-
 export default function HelpPage() {
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
+
+  const onlineHelpTopics = [
+    { icon: Mail, text: 'Seguimiento de mis solicitudes', href: '#' },
+    { icon: ArchiveX, text: 'Problemas con un pedido', href: '#' },
+    { icon: Landmark, text: 'Finanzas', href: '#' },
+    { icon: User, text: 'Administración de mi local', href: '#' },
+    { icon: LifeBuoy, text: 'Soporte técnico', href: '#' },
+    { icon: Trophy, text: 'Programa Socios', href: '#' },
+  ];
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
@@ -128,17 +120,24 @@ export default function HelpPage() {
             </SheetTrigger>
             <SheetContent className="w-full max-w-md sm:max-w-lg">
               <SheetHeader>
-                <SheetTitle>Ayuda en línea</SheetTitle>
+                <SheetTitle className="text-2xl font-bold">
+                  Ayuda en línea
+                </SheetTitle>
               </SheetHeader>
-              <div className="py-4">
+              <div className="pt-6 pb-4">
+                <p className="text-lg mb-6">
+                  <span className="font-bold">¡Hola! 👋</span> Te damos la
+                  bienvenida a Ayuda en Línea.
+                </p>
                 <ul className="flex flex-col">
                   {onlineHelpTopics.map((topic, index) => (
                     <li key={topic.text}>
                       <Link
                         href={topic.href}
-                        className="flex justify-between items-center p-4 text-sm font-medium hover:bg-accent rounded-lg"
+                        className="flex items-center py-4 text-md font-medium"
                       >
-                        <span>{topic.text}</span>
+                        <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
+                        <span className="flex-grow">{topic.text}</span>
                         <ChevronRight className="h-5 w-5 text-muted-foreground" />
                       </Link>
                       {index < onlineHelpTopics.length - 1 && <Separator />}
