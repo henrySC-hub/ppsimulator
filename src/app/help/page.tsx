@@ -854,9 +854,9 @@ export default function HelpPage() {
                         <Separator/>
                       </li>
                        <li>
-                        <button className="w-full text-left" disabled>
+                        <button className="w-full text-left" onClick={() => setSheetView('delay-in-pickup')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                            <span className="opacity-50">Demoras en retiro</span>
+                            <span>Demoras en retiro</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
@@ -946,7 +946,7 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator />
+                        <Separator className='m-0' />
                       </li>
                       <li>
                         <button className="w-full text-left" onClick={() => setSheetView('delay-in-preparation')}>
@@ -1165,6 +1165,65 @@ export default function HelpPage() {
                       <div className="flex flex-col gap-2">
                           <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
                       </div>
+                  </div>
+                </div>
+              )}
+               {sheetView === 'delay-in-pickup' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('cancel-accepted-order')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Demoras en retiro</h2>
+                  </div>
+                  <div className="flex-grow p-6 space-y-6 overflow-y-auto">
+                    <div className="rounded-lg flex overflow-hidden text-white">
+                      <div className="bg-primary p-4 flex-grow flex items-center">
+                        <h3 className="text-xl font-bold">¿Dónde está mi rider?</h3>
+                      </div>
+                      <div className="bg-yellow-400 p-2 flex items-center justify-center">
+                        <div className="relative h-9 w-9">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="hsl(var(--primary))"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-full w-full"
+                          >
+                            <path d="M18 6h-2.7c-.2-2.1-2-3.8-4.3-3.8S7.2 3.9 7 6H4.3C3 6 2.2 7 2.2 8.2v12.5C2.2 21.8 3 22.8 4.3 22.8h15.4c1.3 0 2.1-1 2.1-2.2V8.2c0-1.1-.8-2.2-2.1-2.2zM12 4.2c1.2 0 2.2 1 2.2 2.2H9.8c0-1.2 1-2.2 2.2-2.2z"></path>
+                            <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">P</text>
+                          </svg>
+                          <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 bg-green-500 rounded-full h-4 w-4 flex items-center justify-center border-2 border-yellow-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><path d="M20 6 9 17l-5-5"></path></svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-green-100 text-green-800 font-bold text-center rounded-lg p-3">
+                      El pedido ya fué retirado
+                    </div>
+                    <p className="text-sm text-center text-muted-foreground">
+                      Si tuviste demoras en el retiro de uno o varios pedidos que ya salieron del local, no te preocupes; esta demora se adjudica al repartidor.
+                    </p>
+                    <div className="relative w-full h-3 rounded-full overflow-hidden bg-primary">
+                      <div className="h-full bg-yellow-400" style={{"width":"40%"}}></div>
+                      <div className="absolute inset-0 flex items-center justify-end pr-1">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12.522 10.29C13.578 10.29 14.43 10.59 15.078 11.19C15.738 11.778 16.068 12.528 16.068 13.44C16.068 14.4 15.726 15.18 15.042 15.78C14.358 16.38 13.482 16.68 12.414 16.68H10.158V19H7.902V7.39799H12.522C13.482 7.39799 14.28 7.67999 14.916 8.24399C15.564 8.79599 15.888 9.49199 15.888 10.332C15.888 11.088 15.63 11.688 15.114 12.132C14.598 12.564 13.938 12.78 13.134 12.78H10.158V14.1H12.522C13.098 14.1 13.566 13.95 13.926 13.65C14.286 13.338 14.466 12.96 14.466 12.516C14.466 12.06 14.286 11.682 13.926 11.382C13.566 11.082 13.098 10.932 12.522 10.932H10.158V10.29H12.522Z"></path>
+                          </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 border-t mt-auto bg-background space-y-3">
+                    <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                    <div className="flex flex-col gap-2">
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                    </div>
                   </div>
                 </div>
               )}
