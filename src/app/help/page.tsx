@@ -3,11 +3,14 @@
 import {
   ArchiveX,
   ArrowLeft,
+  Bike,
   ChevronRight,
   CreditCard,
   Headphones,
   Landmark,
   Mail,
+  Map,
+  MessageSquareWarning,
   Radio,
   Search,
   ShieldCheck,
@@ -166,6 +169,25 @@ export default function HelpPage() {
       setSheetView('issue-detail-finished');
     }
   };
+
+  const riderIssues = [
+    {
+      id: 'rider-location',
+      text: '¿Dónde está mi repartidor?',
+    },
+    {
+      id: 'rider-incomplete-order',
+      text: 'El repartidor no se llevó parte del pedido',
+    },
+    {
+      id: 'rider-wrong-order',
+      text: 'El repartidor se llevó una orden equivocada',
+    },
+    {
+      id: 'report-rider',
+      text: 'Reportar a un rider',
+    },
+  ];
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
@@ -360,7 +382,7 @@ export default function HelpPage() {
                     
                     <Separator />
 
-                    <button className="w-full text-left">
+                    <button className="w-full text-left" onClick={() => setSheetView('report-rider')}>
                       <div className="flex items-center justify-between py-2 text-base font-medium">
                         <span>Reportar a un rider</span>
                         <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -394,7 +416,7 @@ export default function HelpPage() {
                   <div className="flex-grow">
                     <ul className="flex flex-col">
                       <li>
-                        <button className="w-full text-left">
+                        <button className="w-full text-left" onClick={() => setSheetView('rider-issues')}>
                           <div className="flex items-center py-4 px-6 text-base font-medium">
                             <span className="flex-grow">
                               Relacionados al repartidor
@@ -426,6 +448,165 @@ export default function HelpPage() {
                         </button>
                       </li>
                     </ul>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'rider-issues' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('issue-detail-finished')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Relacionados al repartidor
+                    </h2>
+                  </div>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      {riderIssues.map((issue, index) => (
+                        <li key={issue.id}>
+                          <button
+                            className="w-full text-left"
+                            onClick={() => setSheetView(issue.id)}
+                          >
+                            <div className="flex items-center py-4 px-6 text-base font-medium">
+                              <span className="flex-grow">{issue.text}</span>
+                              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                          </button>
+                          {index < riderIssues.length - 1 && <Separator className="ml-6" />}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'rider-location' && (
+                 <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-14 w-14"
+                        onClick={() => setSheetView('rider-issues')}
+                      >
+                        <ArrowLeft className="h-5 w-5" />
+                      </Button>
+                      <h2 className="font-semibold text-lg">¿Dónde está mi repartidor?</h2>
+                    </div>
+                    <div className="p-6 flex-grow flex flex-col items-center justify-center text-center bg-background">
+                      <div className="bg-primary/10 p-5 rounded-full mb-6">
+                        <Map className="h-10 w-10 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-xl mb-2">El repartidor está en camino</h3>
+                      <p className="text-muted-foreground text-lg">
+                        Llegará en <span className="text-card-foreground font-bold">5 minutos</span>
+                      </p>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background space-y-3">
+                      <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                      <div className="flex flex-col gap-2">
+                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                      </div>
+                    </div>
+                  </div>
+              )}
+              {sheetView === 'rider-incomplete-order' && (
+                 <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-14 w-14"
+                        onClick={() => setSheetView('rider-issues')}
+                      >
+                        <ArrowLeft className="h-5 w-5" />
+                      </Button>
+                      <h2 className="font-semibold text-lg">Problemas con un pedido</h2>
+                    </div>
+                    <div className="p-6 flex-grow flex flex-col items-center justify-center text-center bg-background">
+                      <div className="bg-primary/10 p-5 rounded-full mb-6">
+                        <Bike className="h-10 w-10 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-xl mb-2">¡No te preocupes!</h3>
+                      <p className="text-muted-foreground">
+                        Nos pondremos en contacto con el repartidor para que vuelva a buscar lo que faltó.
+                      </p>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg">Contactar al repartidor</Button>
+                    </div>
+                  </div>
+              )}
+              {sheetView === 'rider-wrong-order' && (
+                 <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-14 w-14"
+                        onClick={() => setSheetView('rider-issues')}
+                      >
+                        <ArrowLeft className="h-5 w-5" />
+                      </Button>
+                      <h2 className="font-semibold text-lg">Problemas con un pedido</h2>
+                    </div>
+                    <div className="p-6 flex-grow flex flex-col items-center justify-center text-center bg-background">
+                      <div className="bg-primary/10 p-5 rounded-full mb-6">
+                        <Bike className="h-10 w-10 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-xl mb-2">¡No te preocupes!</h3>
+                      <p className="text-muted-foreground">
+                        Nos pondremos en contacto con el repartidor para que vuelva a buscar la orden correcta.
+                      </p>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg">Contactar al repartidor</Button>
+                    </div>
+                  </div>
+              )}
+              {sheetView === 'report-rider' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView(selectedOrder?.status === 'Cancelado' ? 'issue-detail-canceled' : 'rider-issues')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Reportar a un rider</h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6">
+                    <p className="text-muted-foreground">Selecciona el motivo del reporte</p>
+                    <RadioGroup defaultValue="grosero">
+                        <div className="flex items-center space-x-2 py-3 border-b">
+                            <RadioGroupItem value="grosero" id="r1" />
+                            <Label htmlFor="r1" className="font-normal flex-grow">El repartidor fue grosero</Label>
+                        </div>
+                        <div className="flex items-center space-x-2 py-3 border-b">
+                            <RadioGroupItem value="cambio" id="r2" />
+                            <Label htmlFor="r2" className="font-normal flex-grow">El repartidor no tenía cambio</Label>
+                        </div>
+                        <div className="flex items-center space-x-2 py-3 border-b">
+                            <RadioGroupItem value="incompleta" id="r3" />
+                            <Label htmlFor="r3" className="font-normal flex-grow">El repartidor no tenía la orden completa</Label>
+                        </div>
+                        <div className="flex items-center space-x-2 py-3">
+                            <RadioGroupItem value="otro" id="r4" />
+                            <Label htmlFor="r4" className="font-normal flex-grow">Otro</Label>
+                        </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="p-6 border-t mt-auto bg-background">
+                    <Button className="w-full" size="lg">Continuar</Button>
                   </div>
                 </div>
               )}
