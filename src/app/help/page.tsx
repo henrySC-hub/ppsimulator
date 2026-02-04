@@ -1,4 +1,7 @@
+'use client';
+
 import {
+  ChevronRight,
   Headphones,
   Landmark,
   Search,
@@ -10,8 +13,9 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as React from 'react';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -19,8 +23,15 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { cn } from '@/lib/utils';
 
 const helpTopics = [
   { icon: TrendingUp, text: 'Potenciar tu negocio' },
@@ -74,6 +85,27 @@ const portalTips = [
   },
 ];
 
+const onlineHelpTopics = [
+  { text: 'Tengo un problema con un pedido en curso', href: '#' },
+  {
+    text: 'Quiero reportar un problema con un pedido entregado',
+    href: '#',
+  },
+  { text: 'Quiero cancelar un pedido', href: '#' },
+  { text: 'Quiero cerrar mi local temporalmente', href: '#' },
+  {
+    text: 'Tengo un problema con el Portal o con el Gestor de pedidos',
+    href: '#',
+  },
+  { text: 'Quiero cambiar la información de mi local', href: '#' },
+  { text: 'Quiero cambiar los datos de mi cuenta', href: '#' },
+  {
+    text: 'Tengo un problema con el pago o la facturación de mi comisión',
+    href: '#',
+  },
+  { text: 'Quiero dar de baja mi local', href: '#' },
+];
+
 export default function HelpPage() {
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
@@ -84,18 +116,38 @@ export default function HelpPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Ayuda</h1>
-          <Link
-            href="/help"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: 'outline' }),
-              'rounded-full border-primary text-primary hover:bg-primary/5 hover:text-primary'
-            )}
-          >
-            <Headphones className="mr-2" />
-            Ayuda en línea
-          </Link>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                className="rounded-full border-primary text-primary hover:bg-primary/5 hover:text-primary"
+              >
+                <Headphones className="mr-2" />
+                Ayuda en línea
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="w-full max-w-md sm:max-w-lg">
+              <SheetHeader>
+                <SheetTitle>Ayuda en línea</SheetTitle>
+              </SheetHeader>
+              <div className="py-4">
+                <ul className="flex flex-col">
+                  {onlineHelpTopics.map((topic, index) => (
+                    <li key={topic.text}>
+                      <Link
+                        href={topic.href}
+                        className="flex justify-between items-center p-4 text-sm font-medium hover:bg-accent rounded-lg"
+                      >
+                        <span>{topic.text}</span>
+                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                      </Link>
+                      {index < onlineHelpTopics.length - 1 && <Separator />}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </SheetContent>
+          </Sheet>
         </header>
 
         <Card className="p-8 mb-12 shadow-sm">
