@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { SiteHeader } from '@/components/site-header';
 import { Toaster } from '@/components/ui/toaster';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
+import { SiteHeader } from '@/components/site-header';
 
 export const metadata: Metadata = {
-  title: 'AyudaYa',
-  description: 'Portal de gestión y centro de ayuda.',
+  title: 'PedidosYa Portal',
+  description: 'Tablero de gestión.',
 };
 
 export default function RootLayout({
@@ -18,11 +20,16 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=Belleza&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased flex flex-col min-h-screen">
-        <SiteHeader />
-        <main className="flex-grow">{children}</main>
+      <body className="font-sans antialiased">
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <SiteHeader />
+            <main className="flex-grow">{children}</main>
+          </SidebarInset>
+        </SidebarProvider>
         <Toaster />
       </body>
     </html>
