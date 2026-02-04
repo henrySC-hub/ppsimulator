@@ -1261,8 +1261,11 @@ export default function HelpPage() {
                               if (issue.id === 'user-cancel-order') {
                                 setSheetView('user-wants-to-cancel-flow');
                               }
+                              if (issue.id === 'user-modify-order') {
+                                setSheetView('user-modify-order-flow');
+                              }
                             }}
-                            disabled={issue.id !== 'user-cancel-order'}
+                            disabled={!['user-cancel-order', 'user-modify-order'].includes(issue.id)}
                           >
                             <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                               <span className="flex-grow">{issue.text}</span>
@@ -1326,6 +1329,46 @@ export default function HelpPage() {
                           </div>
                       </div>
                   </ScrollArea>
+                  <div className="p-6 border-t mt-auto bg-background space-y-3">
+                    <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                    <div className="flex flex-col gap-2">
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'user-modify-order-flow' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                      <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-14 w-14"
+                          onClick={() => setSheetView('user-issues')}
+                      >
+                          <ArrowLeft className="h-5 w-5" />
+                      </Button>
+                      <h2 className="font-semibold text-lg">
+                        El cliente desea modificar un pedido
+                      </h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                      <div className="space-y-4 text-muted-foreground">
+                          <p>
+                              Solicita a tus clientes que realicen sus modificaciones o cancelaciones a través del servicio de atención en línea, dentro de la sección de pedidos.
+                          </p>
+                          <p className="font-bold text-card-foreground">
+                            ¿Por qué es importante que tus clientes soliciten la cancelacion por si mismos?
+                          </p>
+                          <p>
+                              Dentro de la aplicación, contamos con más informacion acerca del usuario, brindándole la mejor solución para cada caso.
+                          </p>
+                          <p>
+                              ¡Nuestro servicio de Atención al Cliente está diseñado para ofrecerles un rápida solución y resolver todas sus dudas!
+                          </p>
+                      </div>
+                  </div>
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
