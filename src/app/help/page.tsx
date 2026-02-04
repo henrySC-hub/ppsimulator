@@ -647,29 +647,24 @@ export default function HelpPage() {
                     </Button>
                     <h2 className="font-semibold text-lg">Reportar a un rider</h2>
                   </div>
-                  <div className="p-6 flex-grow space-y-6">
-                    <p className="text-muted-foreground">Selecciona el motivo del reporte</p>
-                    <RadioGroup defaultValue="grosero">
-                        <div className="flex items-center space-x-2 py-3 border-b">
-                            <RadioGroupItem value="grosero" id="r1" />
-                            <Label htmlFor="r1" className="font-normal flex-grow">El repartidor fue grosero</Label>
+                  <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                    <div className="space-y-2">
+                        <p className="font-bold text-card-foreground">Lamentamos lo sucedido.</p>
+                        <p className="text-muted-foreground">Sabemos que las interacciones negativas pueden ser incómodas, y estamos aquí para escucharte.</p>
+                    </div>
+                    <RadioGroup>
+                        <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                            <Label htmlFor="r-verbal" className="font-normal flex-grow">Agresión verbal</Label>
+                            <RadioGroupItem value="verbal" id="r-verbal" />
                         </div>
-                        <div className="flex items-center space-x-2 py-3 border-b">
-                            <RadioGroupItem value="cambio" id="r2" />
-                            <Label htmlFor="r2" className="font-normal flex-grow">El repartidor no tenía cambio</Label>
-                        </div>
-                        <div className="flex items-center space-x-2 py-3 border-b">
-                            <RadioGroupItem value="incompleta" id="r3" />
-                            <Label htmlFor="r3" className="font-normal flex-grow">El repartidor no tenía la orden completa</Label>
-                        </div>
-                        <div className="flex items-center space-x-2 py-3">
-                            <RadioGroupItem value="otro" id="r4" />
-                            <Label htmlFor="r4" className="font-normal flex-grow">Otro</Label>
+                        <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                            <Label htmlFor="r-fisica" className="font-normal flex-grow">Agresión física</Label>
+                            <RadioGroupItem value="fisica" id="r-fisica" />
                         </div>
                     </RadioGroup>
                   </div>
                   <div className="p-6 border-t mt-auto bg-background">
-                    <Button className="w-full" size="lg">Continuar</Button>
+                    <Button className="w-full" size="lg" disabled>Continuar</Button>
                   </div>
                 </div>
               )}
