@@ -822,7 +822,7 @@ export default function HelpPage() {
                     </div>
                     <ul className="flex flex-col">
                       <li>
-                        <button className="w-full text-left" disabled>
+                        <button className="w-full text-left" onClick={() => setSheetView('customer-wants-to-cancel')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>El cliente desea cancelar un pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -857,6 +857,65 @@ export default function HelpPage() {
                         </button>
                       </li>
                     </ul>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'customer-wants-to-cancel' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                      <Button
+                          variant="ghost"
+                          size="icon"
+                          className="h-14 w-14"
+                          onClick={() => setSheetView('cancel-accepted-order')}
+                      >
+                          <ArrowLeft className="h-5 w-5" />
+                      </Button>
+                      <h2 className="font-semibold text-lg truncate">
+                        El cliente desea cancelar un pedido
+                      </h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                      <div className="p-6 space-y-6">
+                          <div className="rounded-lg bg-primary text-primary-foreground p-4 text-center font-bold">
+                              <h3 className="text-xl">El cliente desea cancelar un pedido.</h3>
+                          </div>
+
+                          <div className="bg-yellow-100/50 text-yellow-900/80 rounded-lg p-3 text-center">
+                              El cliente se comunica con el local para cancelar el pedido.
+                          </div>
+
+                          <div className="space-y-4 text-sm text-muted-foreground">
+                            <p>
+                                Recuerda pedir a tus clientes que soliciten sus cancelaciones a través de la aplicación. De esta manera, podrán recibir una atención especializada por parte de nuestro equipo de atención al usuario.
+                            </p>
+                            <p className="font-bold text-primary">¿Por qué es importante que tus clientes soliciten la cancelación por sí mismos?</p>
+                            <p>
+                                Dentro de la aplicación, contamos con más información acerca del usuario, brindándole la mejor solución para cada caso.
+                            </p>
+                            <p>
+                                ¡Nuestro servicio de atención al cliente está diseñado para ofrecer soluciones rápidas y efectivas, y para resolver todas sus dudas!
+                            </p>
+                          </div>
+                          
+                          <div className="relative w-full h-3 rounded-full overflow-hidden flex">
+                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fcd3e8'}}></div>
+                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fff100'}}></div>
+                            <div className="h-full bg-primary flex-grow"></div>
+                            <div className="absolute inset-0 flex items-center justify-end pr-2">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.522 10.29C13.578 10.29 14.43 10.59 15.078 11.19C15.738 11.778 16.068 12.528 16.068 13.44C16.068 14.4 15.726 15.18 15.042 15.78C14.358 16.38 13.482 16.68 12.414 16.68H10.158V19H7.902V7.39799H12.522C13.482 7.39799 14.28 7.67999 14.916 8.24399C15.564 8.79599 15.888 9.49199 15.888 10.332C15.888 11.088 15.63 11.688 15.114 12.132C14.598 12.564 13.938 12.78 13.134 12.78H10.158V14.1H12.522C13.098 14.1 13.566 13.95 13.926 13.65C14.286 13.338 14.466 12.96 14.466 12.516C14.466 12.06 14.286 11.682 13.926 11.382C13.566 11.082 13.098 10.932 12.522 10.932H10.158V10.29H12.522Z"></path>
+                                </svg>
+                            </div>
+                          </div>
+                      </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t mt-auto bg-background space-y-3">
+                    <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                    <div className="flex flex-col gap-2">
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                    </div>
                   </div>
                 </div>
               )}
