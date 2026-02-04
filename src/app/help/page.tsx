@@ -341,44 +341,38 @@ export default function HelpPage() {
                       <ArrowLeft className="h-5 w-5" />
                     </Button>
                     <h2 className="font-semibold text-lg">
-                      Problemas con un pedido cancelado
+                      Problemas con un pedido
                     </h2>
                   </div>
-                  <div className="p-6 flex-grow space-y-6">
-                    <div className="space-y-1">
-                      <p className="font-semibold text-card-foreground">
-                        Pedido #{selectedOrder.orderNumber}
+                  <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                    <h3 className="font-bold text-lg">El pedido está cancelado 😟</h3>
+                    <div className="space-y-4 text-muted-foreground">
+                      <p>
+                        ¡Lamentamos los inconvenientes! Si experimentaste retrasos en la entrega y seleccionaste la opción "listo para la entrega", podrás ver los montos relacionados con la devolución por la cancelación de este pedido en tu estado de cuenta semanal.
                       </p>
-                      <p className="text-sm text-muted-foreground">
-                        {selectedOrder.date}
+                      <p>
+                        No es necesario que te comuniques cuando se cancela la orden, ya que <span className="font-bold text-card-foreground">la devolución es automática</span>.
+                      </p>
+                      <p>
+                        Recuerda que puedes consultar tu estado de cuenta semanal en la sección <Link href="#" className="text-primary underline font-semibold">Finanzas</Link>. Además, puedes conocer más sobre el proceso de pago en la sección de <Link href="#" className="text-primary underline font-semibold">Aprendizaje</Link>.
                       </p>
                     </div>
+                    
                     <Separator />
-                    <RadioGroup
-                      defaultValue="cliente-cancelo"
-                      className="space-y-4"
-                    >
-                      <h3 className="font-semibold">
-                        ¿Cuál fue el motivo de la cancelación?
-                      </h3>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="cliente-cancelo" id="r1" />
-                        <Label htmlFor="r1">El cliente canceló el pedido</Label>
+
+                    <button className="w-full text-left">
+                      <div className="flex items-center justify-between py-2 text-base font-medium">
+                        <span>Reportar a un rider</span>
+                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="yo-cancele" id="r2" />
-                        <Label htmlFor="r2">Yo cancelé el pedido</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="otro" id="r3" />
-                        <Label htmlFor="r3">Otro motivo</Label>
-                      </div>
-                    </RadioGroup>
+                    </button>
                   </div>
-                  <div className="p-6 border-t mt-auto">
-                    <Button className="w-full" size="lg">
-                      Continuar
-                    </Button>
+                  <div className="p-6 border-t mt-auto bg-background space-y-3">
+                    <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                    <div className="flex flex-col gap-2">
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -481,12 +475,12 @@ export default function HelpPage() {
         </Card>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Artículos populares</h2>
+          <h3 className="text-2xl font-bold mb-6">Artículos populares</h3>
           <div className="grid md:grid-cols-3 gap-8">
             {popularArticles.map((article) => (
               <Card key={article.title} className="p-6">
-                <CardTitle className="text-lg mb-2">{article.title}</CardTitle>
-                <CardDescription>{article.description}</CardDescription>
+                <h4 className="text-lg font-bold mb-2">{article.title}</h4>
+                <p className="text-sm text-muted-foreground">{article.description}</p>
                 <Link
                   href={article.href}
                   className="text-primary font-semibold mt-4 inline-block"
@@ -499,9 +493,9 @@ export default function HelpPage() {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-6">
+          <h3 className="text-2xl font-bold mb-6">
             Aprovecha el Portal al máximo
-          </h2>
+          </h3>
           <div className="grid md:grid-cols-3 gap-8">
             {portalTips.map((tip) => {
               const image = PlaceHolderImages.find((p) => p.id === tip.id);
@@ -519,10 +513,10 @@ export default function HelpPage() {
                       />
                     </div>
                   )}
-                  <CardTitle className="text-lg mb-2">{tip.title}</CardTitle>
-                  <CardDescription className="mb-4">
+                  <h4 className="text-lg font-bold mb-2">{tip.title}</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
                     {tip.description}
-                  </CardDescription>
+                  </p>
                   <Button
                     variant="outline"
                     className="border-primary text-primary hover:bg-primary/5 hover:text-primary"
