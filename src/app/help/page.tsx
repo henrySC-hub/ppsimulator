@@ -425,7 +425,7 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                       <li>
                         <button className="w-full text-left" onClick={() => setSheetView('local-issues')}>
@@ -436,7 +436,7 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                       <li>
                         <button className="w-full text-left">
@@ -480,7 +480,7 @@ export default function HelpPage() {
                               <ChevronRight className="h-5 w-5 text-muted-foreground" />
                             </div>
                           </button>
-                          {index < riderIssues.length - 1 && <Separator className="ml-6" />}
+                          {index < riderIssues.length - 1 && <Separator />}
                         </li>
                       ))}
                     </ul>
@@ -694,7 +694,7 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                       <li>
                         <button className="w-full text-left" onClick={() => setSheetView('cancel-accepted-order')}>
@@ -941,7 +941,7 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                       <li>
                         <button className="w-full text-left" disabled>
