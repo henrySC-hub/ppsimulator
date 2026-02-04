@@ -816,15 +816,19 @@ export default function HelpPage() {
                     <h2 className="font-semibold text-lg">Necesito cancelar una orden aceptada</h2>
                   </div>
                   <div className="flex-grow">
+                    <div className="p-6 space-y-2 text-sm">
+                      <p>¡El pedido está en curso! Selecciona el motivo por el cual deseas cancelar la orden.</p>
+                      <p>Recuerda asegurarte de seleccionar el número de pedido correcto para que podamos brindarte la mejor solución al caso.</p>
+                    </div>
                     <ul className="flex flex-col">
                       <li>
                         <button className="w-full text-left" disabled>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                            <span>El cliente desea cancelar el pedido</span>
+                            <span>El cliente desea cancelar un pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                       <li>
                         <button className="w-full text-left" onClick={() => setSheetView('local-inconveniences')}>
@@ -833,21 +837,21 @@ export default function HelpPage() {
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator />
                       </li>
                        <li>
-                        <button className="w-full text-left" disabled>
+                        <button className="w-full text-left" onClick={() => setSheetView('missing-products')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                            <span>No tengo un producto</span>
+                            <span>Me faltan productos para preparar el pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
-                        <Separator className="ml-6" />
+                        <Separator/>
                       </li>
                        <li>
                         <button className="w-full text-left" disabled>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                            <span>El pedido está duplicado</span>
+                            <span>Demoras en retiro</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
