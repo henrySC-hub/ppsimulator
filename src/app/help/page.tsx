@@ -23,6 +23,7 @@ import {
   TrendingUp,
   User,
   UserCog,
+  X,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,6 +37,7 @@ import {
   CardDescription,
   CardTitle,
 } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -843,7 +845,7 @@ export default function HelpPage() {
                         <Separator />
                       </li>
                        <li>
-                        <button className="w-full text-left" onClick={() => setSheetView('missing-products')}>
+                        <button className="w-full text-left" onClick={() => setSheetView('cancel-missing-products')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>Me faltan productos para preparar el pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -1080,6 +1082,90 @@ export default function HelpPage() {
                             </div>
                         </div>
                     </ScrollArea>
+                </div>
+              )}
+              {sheetView === 'cancel-missing-products' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('cancel-accepted-order')}>
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg truncate">Me faltan productos para preparar el p...</h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6">
+                      <p className="text-sm text-muted-foreground">
+                        A continuación, te proporcionamos los pasos a seguir en tus próximos pedidos en caso de que no dispongas de un producto en tu sistema de recepción.
+                      </p>
+                      
+                      <div className="space-y-5">
+                          <div className="flex items-start gap-4">
+                              <Search className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
+                              <p className="text-sm">Podrás <span className="font-bold text-card-foreground">ponerte en contacto con el cliente</span> para ofrecerle reemplazos del mismo valor.</p>
+                          </div>
+                          <div className="flex items-start gap-4">
+                              <div className="bg-blue-500 rounded-full h-5 w-5 flex items-center justify-center shrink-0 mt-0.5">
+                                  <Info className="h-3 w-3 text-white" />
+                              </div>
+                              <p className="text-sm"><span className="font-bold text-card-foreground">Desactivar los productos no disponibles</span> para evitar cancelaciones en próximos pedidos</p>
+                          </div>
+                          <div className="flex items-start gap-4">
+                              <div className="relative h-5 w-5 mt-0.5 shrink-0">
+                                   <svg viewBox="0 0 24 24" fill="hsl(var(--primary))" xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
+                                      <path d="M18 6h-2.7c-.2-2.1-2-3.8-4.3-3.8S7.2 3.9 7 6H4.3C3 6 2.2 7 2.2 8.2v12.5C2.2 21.8 3 22.8 4.3 22.8h15.4c1.3 0 2.1-1 2.1-2.2V8.2c0-1.1-.8-2.2-2.1-2.2zM12 4.2c1.2 0 2.2 1 2.2 2.2H9.8c0-1.2 1-2.2 2.2-2.2z"></path>
+                                      <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">P</text>
+                                    </svg>
+                              </div>
+                              <p className="text-sm"><span className="font-bold text-card-foreground">Cancelar la orden sin necesidad de contactar por ayuda en línea.</span></p>
+                          </div>
+                      </div>
+
+                      <div className="bg-card border rounded-lg p-4 space-y-4 shadow-sm">
+                          <div className="flex justify-between items-center">
+                              <h4 className="font-bold">¿Qué productos no están disponibles?</h4>
+                              <X className="h-4 w-4 text-muted-foreground" />
+                          </div>
+                          <p className="text-sm text-muted-foreground">Estos productos serán marcados como no disponibles por el resto del día.</p>
+                          <div className="space-y-3 text-sm">
+                              <div className="flex items-center space-x-2">
+                                  <Checkbox id="p-milanesa" />
+                                  <Label htmlFor="p-milanesa" className="font-normal">Milanesa vegetariana al pan</Label>
+                              </div>
+                              <div className="flex items-center space-x-2 relative">
+                                  <Checkbox id="p-avena" checked />
+                                  <Label htmlFor="p-avena" className="font-normal">Cookies de avena</Label>
+                                  <div className="absolute left-full ml-4 flex items-center text-primary text-xs whitespace-nowrap font-medium">
+                                      <ArrowLeft className="h-3 w-3 mr-1" />
+                                      Marca el producto no disponible
+                                  </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                  <Checkbox id="p-chispas" />
+                                  <Label htmlFor="p-chispas" className="font-normal">Cookies: Chispas de choco</Label>
+                              </div>
+                          </div>
+                          <Button className="w-full bg-primary hover:bg-primary/90">Continuar</Button>
+                      </div>
+
+                      <div className="p-4 rounded-lg bg-yellow-50 border border-yellow-200 space-y-3">
+                          <p className="text-sm text-muted-foreground">En caso que el cliente acepte el cambio podrás continuar con el pedido, en caso contrario deberás rechazar la orden, puedes hacerlo tu mismo desde el sistema de recepción sin tener que contactarte con un agente.</p>
+                          <div className="h-4 flex rounded-full overflow-hidden">
+                              <div className="w-1/2" style={{backgroundColor: '#fff100'}}></div>
+                              <div className="w-1/2 bg-primary flex items-center justify-end pr-2">
+                                  <svg width="8" height="10" viewBox="0 0 8 10" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.008 3.43C4.544 3.43 4.96933 3.54867 5.284 3.786C5.6 4.02333 5.76 4.316 5.76 4.664C5.76 5.05667 5.632 5.37867 5.376 5.63C5.12 5.88133 4.776 6 4.344 6H3.176V7.02H2.128V2.42H4.008ZM3.96 4.04H3.176V4.6H3.96C4.264 4.6 4.50533 4.544 4.684 4.432C4.86267 4.32 4.952 4.172 4.952 3.988C4.952 3.79333 4.86267 3.63467 4.684 3.512C4.50533 3.38933 4.264 3.328 3.96 3.328H3.176V4.04H3.96Z" fill="white"/>
+                                  </svg>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t mt-auto bg-background space-y-3">
+                      <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                      <div className="flex flex-col gap-2">
+                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                      </div>
+                  </div>
                 </div>
               )}
             </SheetContent>
