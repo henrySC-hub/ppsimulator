@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -426,7 +427,7 @@ export default function HelpPage() {
                         <Separator className="ml-6" />
                       </li>
                       <li>
-                        <button className="w-full text-left">
+                        <button className="w-full text-left" onClick={() => setSheetView('local-issues')}>
                           <div className="flex items-center py-4 px-6 text-base font-medium">
                             <span className="flex-grow">
                               Relacionados a mi local
@@ -665,6 +666,44 @@ export default function HelpPage() {
                   </div>
                   <div className="p-6 border-t mt-auto bg-background">
                     <Button className="w-full" size="lg" disabled>Continuar</Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'local-issues' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('issue-detail-finished')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Relacionados a mi local
+                    </h2>
+                  </div>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      <li>
+                        <button className="w-full text-left">
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>Me faltan productos para preparar el pedido</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                      <li>
+                        <button className="w-full text-left">
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>Necesito cancelar una orden aceptada</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               )}
