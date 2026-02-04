@@ -1,140 +1,193 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, FileText, Search, Star, TrendingUp, UserCog } from "lucide-react";
+import {
+  Headphones,
+  Landmark,
+  Search,
+  ShieldCheck,
+  Star,
+  TrendingUp,
+  User,
+  UserCog,
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const helpTopics = [
-  {
-    icon: TrendingUp,
-    title: "Potenciar tu negocio",
-    description: "Estrategias y herramientas para crecer.",
-    href: "#",
-  },
-  {
-    icon: UserCog,
-    title: "Autogestión total",
-    description: "Configura y personaliza tu experiencia.",
-    href: "#",
-  },
-  {
-    icon: Star,
-    title: "Primeros pasos",
-    description: "Guías para empezar a usar el portal.",
-    href: "#",
-  },
-  {
-    icon: FileText,
-    title: "Facturación y pagos",
-    description: "Todo sobre tus facturas y métodos de pago.",
-    href: "#",
-  },
+  { icon: TrendingUp, text: 'Potenciar tu negocio' },
+  { icon: UserCog, text: 'Autogestión total' },
+  { icon: Star, text: 'Primeros pasos' },
+  { icon: ShieldCheck, text: 'Operativa exitosa' },
+  { icon: User, text: 'Perfil ideal' },
+  { icon: Landmark, text: 'Finanzas al detalle' },
 ];
 
 const popularArticles = [
-  "¿Cómo configuro mi perfil?",
-  "Entendiendo el panel de estadísticas",
-  "Resolución de problemas comunes",
-  "Guía de integración de API",
-  "¿Cómo contacto a soporte?",
+  {
+    title: 'Tiempo de preparación de un pedido',
+    description:
+      'Respetar los tiempos de preparación es fundamental para que el cliente tenga una buena experiencia y califique bien tu local. ¡Aprende todo...',
+    href: '#',
+  },
+  {
+    title: 'Cuándo pedir ayuda',
+    description:
+      'Descubre cómo autogestionarte en los asuntos más relevantes para tu local y por qué canales y temas puedes solicitar ayuda personalizada.',
+    href: '#',
+  },
+  {
+    title: 'Descuentos otorgados por PedidosYa a clientes - Solo Chile',
+    description:
+      'Conoce cómo puedes visualizar los descuentos otorgados por PedidosYa a sus clientes.',
+    href: '#',
+  },
 ];
 
-const maximizePortal = [
-  "Personaliza tus reportes",
-  "Automatiza tareas repetitivas",
-  "Usa la app móvil",
-  "Invita a tu equipo",
-  "Descubre funciones avanzadas",
+const portalTips = [
+  {
+    id: 'help-portal-1',
+    title: 'Potencia tu negocio',
+    description: 'Descubre cómo impulsar tu crecimiento usando el Portal',
+    imageHint: 'business growth illustration',
+  },
+  {
+    id: 'help-portal-2',
+    title: 'Monitorea tu desempeño',
+    description:
+      'Aprende todo sobre tu rendimiento, pedidos, evaluaciones y más.',
+    imageHint: 'performance monitoring illustration',
+  },
+  {
+    id: 'help-portal-3',
+    title: 'Gestiona tu local',
+    description: 'Conoce cómo autogestionar tu negocio en el Portal',
+    imageHint: 'store management illustration',
+  },
 ];
-
-const heroImage = PlaceHolderImages.find((img) => img.id === "help-hero");
 
 export default function HelpPage() {
+  const mainIllustration = PlaceHolderImages.find(
+    (p) => p.id === 'help-illustration-main'
+  );
+
   return (
-    <div>
-      <section className="relative h-64 md:h-80 bg-secondary">
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            fill
-            className="object-cover"
-            data-ai-hint={heroImage.imageHint}
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-primary/70" />
-        <div className="relative h-full flex flex-col items-center justify-center text-center text-primary-foreground px-4">
-          <h1 className="text-4xl font-headline sm:text-5xl md:text-6xl">
-            Hola, ¿Cómo podemos ayudarte?
-          </h1>
-          <div className="mt-8 w-full max-w-2xl">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Busca artículos de ayuda..."
-                className="w-full pl-12 h-14 text-lg bg-background text-foreground"
-              />
-            </div>
-            <p className="mt-2 text-sm">
-              Artículos relacionados: <a href="#" className="underline">facturación</a>, <a href="#" className="underline">perfil</a>, <a href="#" className="underline">reportes</a>
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold">Ayuda</h1>
+          <Button
+            variant="outline"
+            className="rounded-full border-primary text-primary hover:bg-primary/5 hover:text-primary"
+          >
+            <Headphones className="mr-2" />
+            Ayuda en línea
+          </Button>
+        </header>
 
-      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-headline text-center text-primary mb-12">Navega por temas</h2>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {helpTopics.map((topic) => (
-            <Link href={topic.href} key={topic.title} className="block">
-              <Card className="h-full text-center hover:shadow-xl hover:-translate-y-1 transition-transform duration-300">
-                <CardHeader className="items-center">
-                  <div className="p-4 bg-secondary rounded-full">
-                    <topic.icon className="h-8 w-8 text-secondary-foreground" />
-                  </div>
-                  <CardTitle className="font-headline text-2xl mt-4">{topic.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{topic.description}</p>
-                </CardContent>
+        <Card className="p-8 mb-12 shadow-sm">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">
+                ¿Cómo podemos ayudarte?
+              </h2>
+              <div className="relative mb-4">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  placeholder="Descubre más información útil"
+                  className="pl-10 h-12"
+                />
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {helpTopics.map((topic) => (
+                  <Button
+                    key={topic.text}
+                    variant="outline"
+                    className="justify-start text-left"
+                  >
+                    <topic.icon className="mr-2" />
+                    {topic.text}
+                  </Button>
+                ))}
+              </div>
+            </div>
+            {mainIllustration && (
+              <div className="hidden md:flex justify-center items-center">
+                <Image
+                  src={mainIllustration.imageUrl}
+                  alt={mainIllustration.description}
+                  width={300}
+                  height={200}
+                  className="object-contain"
+                  data-ai-hint={mainIllustration.imageHint}
+                />
+              </div>
+            )}
+          </div>
+        </Card>
+
+        <section className="mb-12">
+          <h2 className="text-2xl font-bold mb-6">Artículos populares</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {popularArticles.map((article) => (
+              <Card key={article.title} className="p-6">
+                <CardTitle className="text-lg mb-2">{article.title}</CardTitle>
+                <CardDescription>{article.description}</CardDescription>
+                <Link
+                  href={article.href}
+                  className="text-primary font-semibold mt-4 inline-block"
+                >
+                  Leer más &gt;
+                </Link>
               </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-card py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div>
-              <h3 className="text-2xl font-headline text-primary mb-6">Artículos populares</h3>
-              <div className="space-y-4">
-                {popularArticles.map((article) => (
-                  <Link href="#" key={article} className="flex items-center text-foreground hover:text-primary group">
-                    <p className="flex-grow">{article}</p>
-                    <ArrowRight className="h-5 w-5 ml-2 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-2xl font-headline text-primary mb-6">Aprovecha el Portal al máximo</h3>
-              <div className="space-y-4">
-                {maximizePortal.map((tip) => (
-                   <Link href="#" key={tip} className="flex items-center text-foreground hover:text-primary group">
-                    <p className="flex-grow">{tip}</p>
-                    <ArrowRight className="h-5 w-5 ml-2 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </Link>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold mb-6">
+            Aprovecha el Portal al máximo
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {portalTips.map((tip) => {
+              const image = PlaceHolderImages.find((p) => p.id === tip.id);
+              return (
+                <Card key={tip.title} className="p-6 text-center">
+                  {image && (
+                    <div className="flex justify-center mb-4">
+                      <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        width={150}
+                        height={100}
+                        className="object-contain h-24"
+                        data-ai-hint={image.imageHint}
+                      />
+                    </div>
+                  )}
+                  <CardTitle className="text-lg mb-2">{tip.title}</CardTitle>
+                  <CardDescription className="mb-4">
+                    {tip.description}
+                  </CardDescription>
+                  <Button
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary/5 hover:text-primary"
+                  >
+                    Ver artículos
+                  </Button>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

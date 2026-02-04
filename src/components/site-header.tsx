@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Bell, ChevronDown, HelpCircle } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export function SiteHeader() {
   return (
@@ -34,10 +35,12 @@ export function SiteHeader() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
           <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-          <Button variant="outline" className="rounded-full">
-            <HelpCircle className="h-4 w-4 mr-2" />
-            Ayuda
-          </Button>
+          <Link href="/help" passHref>
+            <Button variant="outline" className="rounded-full">
+              <HelpCircle className="h-4 w-4 mr-2" />
+              Ayuda
+            </Button>
+          </Link>
           <Button variant="ghost" size="icon" className="rounded-full">
             <Bell className="h-5 w-5" />
             <span className="sr-only">Notificaciones</span>

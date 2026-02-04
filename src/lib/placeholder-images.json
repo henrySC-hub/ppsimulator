@@ -1,10 +1,28 @@
 {
   "placeholderImages": [
     {
-      "id": "help-hero",
-      "description": "A person at a desk looking at a computer screen, representing customer support.",
-      "imageUrl": "https://images.unsplash.com/photo-1599583863916-e06c29087f51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXBwb3J0JTIwZGVza3xlbnwwfHx8fDE3NzAyMTYzNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "support desk"
+      "id": "help-illustration-main",
+      "description": "Illustration of two people with a large question mark.",
+      "imageUrl": "https://res.cloudinary.com/djpzl0pcq/image/upload/v1716327668/question_mark_illustration_z52szi.png",
+      "imageHint": "support help illustration"
+    },
+    {
+      "id": "help-portal-1",
+      "description": "Illustration for 'Potencia tu negocio' showing growth concepts.",
+      "imageUrl": "https://res.cloudinary.com/djpzl0pcq/image/upload/v1716327668/business_growth_illustration_qp0vzv.png",
+      "imageHint": "business growth"
+    },
+    {
+      "id": "help-portal-2",
+      "description": "Illustration for 'Monitorea tu desempeño' showing charts and graphs.",
+      "imageUrl": "https://res.cloudinary.com/djpzl0pcq/image/upload/v1716327668/performance_monitoring_illustration_l6u8hf.png",
+      "imageHint": "performance monitoring"
+    },
+    {
+      "id": "help-portal-3",
+      "description": "Illustration for 'Gestiona tu local' showing a mobile phone with store management icons.",
+      "imageUrl": "https://res.cloudinary.com/djpzl0pcq/image/upload/v1716327668/store_management_illustration_v8gqzt.png",
+      "imageHint": "store management"
     }
   ]
 }
