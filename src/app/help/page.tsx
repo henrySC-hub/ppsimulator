@@ -935,7 +935,7 @@ export default function HelpPage() {
                   <div className="flex-grow">
                     <ul className="flex flex-col">
                       <li>
-                        <button className="w-full text-left" disabled>
+                        <button className="w-full text-left" onClick={() => setSheetView('local-is-closing')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>El local esta cerrando</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -952,6 +952,48 @@ export default function HelpPage() {
                         </button>
                       </li>
                     </ul>
+                  </div>
+                </div>
+              )}
+               {sheetView === 'local-is-closing' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('local-inconveniences')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">El local esta cerrando</h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-8 overflow-y-auto">
+                    <div className="space-y-4">
+                      <h3 className="font-bold text-lg">¿Tu local está cerrado?</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Recuerda que el horario de cierre de tu perfil en nuestra plataforma <span className="font-bold text-card-foreground">debe ser 30 minutos antes del cierre de tu cocina</span>, para evitar rechazos o inconvenientes con los últimos pedidos del turno. Puedes editar tus horarios en <Link href="#" className="text-primary underline font-semibold">partner portal</Link>.
+                      </p>
+                      <p className="text-muted-foreground text-sm">
+                        Si no sabes cómo hacerlo, haz clic en el botón "Cómo configurar mis horarios" y te enseñaremos.
+                      </p>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">Como configurar mis horarios</Button>
+                    </div>
+                    <div className="space-y-4">
+                      <h3 className="font-bold text-lg">¿Tienes un pedido en curso?</h3>
+                       <p className="text-muted-foreground text-sm">
+                        En caso de que no puedas preparar la orden en curso debido al cierre del local, podrás cancelar el pedido desde tu sistema de recepción, accediendo a la opción 'Editar orden'.
+                      </p>
+                      <div className="flex items-center gap-8 mt-4">
+                        <p className="text-primary font-bold text-lg flex-shrink-0">Edita tu orden</p>
+                        <div className="relative">
+                           <div className="bg-card p-1 rounded-md shadow-lg w-40">
+                              <div className="border border-dashed border-primary p-2 text-sm">Editar orden</div>
+                              <div className="p-2 text-sm">Imprimir Pedido</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
