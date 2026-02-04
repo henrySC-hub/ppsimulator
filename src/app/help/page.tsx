@@ -697,7 +697,7 @@ export default function HelpPage() {
                         <Separator className="ml-6" />
                       </li>
                       <li>
-                        <button className="w-full text-left">
+                        <button className="w-full text-left" onClick={() => setSheetView('cancel-accepted-order')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>Necesito cancelar una orden aceptada</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -800,6 +800,96 @@ export default function HelpPage() {
                             </div>
                         </div>
                     </ScrollArea>
+                </div>
+              )}
+               {sheetView === 'cancel-accepted-order' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('local-issues')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Necesito cancelar una orden aceptada</h2>
+                  </div>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      <li>
+                        <button className="w-full text-left" disabled>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>El cliente desea cancelar el pedido</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                      <li>
+                        <button className="w-full text-left" onClick={() => setSheetView('local-inconveniences')}>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>Inconvenientes en el local</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                       <li>
+                        <button className="w-full text-left" disabled>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>No tengo un producto</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                       <li>
+                        <button className="w-full text-left" disabled>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>El pedido está duplicado</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'local-inconveniences' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('cancel-accepted-order')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Inconvenientes en el local</h2>
+                  </div>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      <li>
+                        <button className="w-full text-left" disabled>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>El local esta cerrando</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                        <Separator className="ml-6" />
+                      </li>
+                      <li>
+                        <button className="w-full text-left" disabled>
+                          <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                            <span>Tengo demora para preparar el pedido</span>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                          </div>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               )}
             </SheetContent>
