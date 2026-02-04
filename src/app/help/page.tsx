@@ -195,6 +195,15 @@ export default function HelpPage() {
     },
   ];
 
+  const userIssues = [
+    { id: 'user-cancel-order', text: 'El cliente desea cancelar un pedido' },
+    { id: 'user-modify-order', text: 'El cliente desea modificar un pedido' },
+    { id: 'user-missing-info', text: 'Me falta información de la orden' },
+    { id: 'user-notes-issue', text: 'Inconveniente con las notas del pedido' },
+    { id: 'user-fake-order', text: 'Orden dudosa / falsa' },
+  ];
+
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -444,7 +453,7 @@ export default function HelpPage() {
                         <Separator />
                       </li>
                       <li>
-                        <button className="w-full text-left">
+                        <button className="w-full text-left" onClick={() => setSheetView('user-issues')}>
                           <div className="flex items-center py-4 px-6 text-base font-medium">
                             <span className="flex-grow">
                               Relacionados al usuario
@@ -1224,6 +1233,40 @@ export default function HelpPage() {
                         <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
                         <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
                     </div>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'user-issues' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('issue-detail-finished')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Relacionados al usuario
+                    </h2>
+                  </div>
+                  <div className="flex-grow">
+                    <ul className="flex flex-col">
+                      {userIssues.map((issue, index) => (
+                        <li key={issue.id}>
+                          <button
+                            className="w-full text-left"
+                          >
+                            <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                              <span className="flex-grow">{issue.text}</span>
+                              <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                          </button>
+                          {index < userIssues.length - 1 && <Separator />}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               )}
