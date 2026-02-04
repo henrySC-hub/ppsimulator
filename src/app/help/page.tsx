@@ -11,7 +11,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { cn } from '@/lib/utils';
 
 const helpTopics = [
   { icon: TrendingUp, text: 'Potenciar tu negocio' },
@@ -83,13 +84,18 @@ export default function HelpPage() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Ayuda</h1>
-          <Button
-            variant="outline"
-            className="rounded-full border-primary text-primary hover:bg-primary/5 hover:text-primary"
+          <Link
+            href="/help"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: 'outline' }),
+              'rounded-full border-primary text-primary hover:bg-primary/5 hover:text-primary'
+            )}
           >
             <Headphones className="mr-2" />
             Ayuda en línea
-          </Button>
+          </Link>
         </header>
 
         <Card className="p-8 mb-12 shadow-sm">
