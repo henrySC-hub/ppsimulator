@@ -8,6 +8,7 @@ import {
   ChevronRight,
   CreditCard,
   Headphones,
+  Info,
   Landmark,
   Mail,
   MessageSquareWarning,
@@ -687,7 +688,7 @@ export default function HelpPage() {
                   <div className="flex-grow">
                     <ul className="flex flex-col">
                       <li>
-                        <button className="w-full text-left">
+                        <button className="w-full text-left" onClick={() => setSheetView('missing-products')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>Me faltan productos para preparar el pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -705,6 +706,100 @@ export default function HelpPage() {
                       </li>
                     </ul>
                   </div>
+                </div>
+              )}
+               {sheetView === 'missing-products' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('local-issues')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg truncate">
+                            Me faltan productos para preparar el p...
+                        </h2>
+                    </div>
+                    <ScrollArea className="flex-grow">
+                        <div className="p-6 space-y-6">
+                            <div className="rounded-lg flex overflow-hidden text-white font-bold">
+                                <div className="bg-primary p-4 flex-grow flex items-center">
+                                    <h3 className="text-xl">Me faltan productos para preparar el pedido</h3>
+                                </div>
+                                <div className="p-2 flex items-center justify-center w-10" style={{backgroundColor: '#fff100'}}>
+                                </div>
+                                <div className="p-2 flex items-center justify-center w-4" style={{backgroundColor: '#fcd3e8'}}>
+                                </div>
+                            </div>
+
+                            <div className="bg-green-100 text-green-800 font-bold text-center rounded-lg p-3 flex items-center justify-center gap-2">
+                                El pedido ya fué retirado 🙌
+                            </div>
+
+                            <p className="text-sm text-muted-foreground">
+                                En caso de que tengas inconvenientes con el pedido luego de que haya sido entregado al rider recuerda que el cliente podrá comunicarse con nuestro servicio de atención especializada desde la aplicación
+                            </p>
+
+                            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 space-y-2">
+                                <p className="font-bold text-yellow-900">¿Qué debo hacer si un producto está fuera de stock?</p>
+                                <p className="text-sm text-muted-foreground">
+                                    A continuación, te proporcionamos los pasos a seguir en tus próximos pedidos en caso de que no dispongas de un producto en tu sistema de recepción.
+                                </p>
+                            </div>
+
+                            <div className="space-y-5">
+                                <div className="flex items-start gap-4">
+                                    <Search className="h-6 w-6 text-muted-foreground mt-0.5 shrink-0" />
+                                    <p className="text-sm">Podrás <span className="font-bold">ponerte en contacto con el cliente</span> para ofrecerle reemplazos del mismo valor.</p>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div className="bg-blue-500 rounded-full h-6 w-6 flex items-center justify-center shrink-0 mt-0.5">
+                                        <Info className="h-4 w-4 text-white" />
+                                    </div>
+                                    <p className="text-sm"><span className="font-bold">Desactivar los productos no disponibles</span> para evitar cancelaciones en próximos pedidos</p>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div className="relative h-6 w-6 mt-0.5 shrink-0">
+                                         <svg
+                                            viewBox="0 0 24 24"
+                                            fill="hsl(var(--primary))"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className="h-full w-full"
+                                          >
+                                            <path d="M18 6h-2.7c-.2-2.1-2-3.8-4.3-3.8S7.2 3.9 7 6H4.3C3 6 2.2 7 2.2 8.2v12.5C2.2 21.8 3 22.8 4.3 22.8h15.4c1.3 0 2.1-1 2.1-2.2V8.2c0-1.1-.8-2.2-2.1-2.2zM12 4.2c1.2 0 2.2 1 2.2 2.2H9.8c0-1.2 1-2.2 2.2-2.2z"></path>
+                                            <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">P</text>
+                                          </svg>
+                                    </div>
+                                    <p className="text-sm"><span className="font-bold">Cancelar la orden sin necesidad de contactar por ayuda en línea.</span></p>
+                                </div>
+                            </div>
+
+                            <Separator />
+                            
+                            <div className="space-y-2">
+                                <h4 className="font-bold text-lg">¡Salvemos el pedido!</h4>
+                                <p className="text-sm text-muted-foreground">Intenta llamar al cliente para ofrecerle un producto alternativo de valor similar.</p>
+                            </div>
+                            
+                            <div className="border rounded-lg p-3">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <User className="h-5 w-5 text-muted-foreground" />
+                                        <div>
+                                            <p className="font-semibold text-sm">Maria Jose</p>
+                                            <p className="text-sm text-muted-foreground">+49 454 1234 5678</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                       <button className="text-sm font-semibold text-primary">Contactá al cliente y Salvá el pedido &gt;</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollArea>
                 </div>
               )}
             </SheetContent>
