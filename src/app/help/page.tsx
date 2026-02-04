@@ -124,6 +124,7 @@ export default function HelpPage() {
   const [sheetView, setSheetView] = React.useState('main');
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
   const [missingInfoReason, setMissingInfoReason] = React.useState<string | null>(null);
+  const [chatName, setChatName] = React.useState('');
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
@@ -216,6 +217,7 @@ export default function HelpPage() {
                 setSheetView('main');
                 setSelectedOrder(null);
                 setMissingInfoReason(null);
+                setChatName('');
               }
             }}
           >
@@ -1416,8 +1418,71 @@ export default function HelpPage() {
                         </RadioGroup>
                     </div>
                     <div className="p-6 border-t mt-auto bg-background">
-                        <Button className="w-full" size="lg" disabled={!missingInfoReason}>Continuar</Button>
+                        <Button
+                          className="w-full"
+                          size="lg"
+                          disabled={!missingInfoReason}
+                          onClick={() => {
+                            if (missingInfoReason === 'missing-specs') {
+                              setSheetView('missing-specs-details');
+                            }
+                          }}
+                        >
+                          Continuar
+                        </Button>
                     </div>
+                </div>
+              )}
+              {sheetView === 'missing-specs-details' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('user-missing-info-flow')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Me falta información de la orden
+                    </h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6 text-sm text-muted-foreground">
+                      <p>
+                        Recuerda configurar los opcionales/adiciones en tu menú para evitar recibir órdenes en las cuales el cliente no haya incluido información necesaria para la preparación.
+                      </p>
+                      <p>
+                        Te recomendamos configurar tu menú de manera que tus clientes puedan personalizar su orden fácilmente. Cuantas más opciones y adicionales ofrezcas en tu producto, menos inconvenientes como este tendrás en el futuro, generando más ventas. Si quieres mas ayuda sobre como configurar tu menú haz click en ¿Como configurar mis Opciones/Adicionales?
+                      </p>
+                      <p>
+                        Te proporcionamos más información para que puedas aprender cómo hacerlo. Selecciona las opciones según tu tipo de local.
+                      </p>
+                      <Separator />
+                      <button className="w-full text-left">
+                        <div className="flex items-center justify-between py-2 text-base font-medium text-card-foreground">
+                          <span>¿Cómo configurar opciones y adicionales?</span>
+                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                      </button>
+                      <Separator />
+                      <div className="space-y-4 pt-4">
+                        <p className="font-semibold text-card-foreground">Si necesitas ayuda con una orden en curso, chatea con un agente.</p>
+                        <p>Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                        <Input 
+                          placeholder="Escribe tu nombre aquí" 
+                          value={chatName}
+                          onChange={(e) => setChatName(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t bg-background">
+                    <Button className="w-full" size="lg" disabled={!chatName}>
+                      Chatear con soporte
+                    </Button>
+                  </div>
                 </div>
               )}
             </SheetContent>
