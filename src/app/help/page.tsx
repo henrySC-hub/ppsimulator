@@ -4,8 +4,10 @@
 import {
   ArchiveX,
   ArrowLeft,
+  ArrowRight,
   Bike,
   ChevronRight,
+  Clock,
   CreditCard,
   Headphones,
   Info,
@@ -16,6 +18,7 @@ import {
   Search,
   ShieldCheck,
   Star,
+  Store,
   Trophy,
   TrendingUp,
   User,
@@ -851,7 +854,7 @@ export default function HelpPage() {
                        <li>
                         <button className="w-full text-left" disabled>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                            <span>Demoras en retiro</span>
+                            <span className="opacity-50">Demoras en retiro</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
                           </div>
                         </button>
@@ -944,7 +947,7 @@ export default function HelpPage() {
                         <Separator />
                       </li>
                       <li>
-                        <button className="w-full text-left" disabled>
+                        <button className="w-full text-left" onClick={() => setSheetView('delay-in-preparation')}>
                           <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                             <span>Tengo demora para preparar el pedido</span>
                             <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -995,6 +998,88 @@ export default function HelpPage() {
                       </div>
                     </div>
                   </div>
+                </div>
+              )}
+               {sheetView === 'delay-in-preparation' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('local-inconveniences')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">Tengo demora para preparar el pedido</h2>
+                    </div>
+                    <ScrollArea className="flex-grow">
+                        <div className="p-6 space-y-8">
+                            <div className="rounded-lg bg-primary text-primary-foreground p-4 text-center">
+                                <h3 className="text-xl font-bold">Demoras en la preparación del pedido</h3>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                                Si tu local tiene mas demanda de la que puedes cubrir o tienes inconvenientes para la preparación del pedido puedes recurrir a estas opciones:
+                            </p>
+
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-3">
+                                    <div className="bg-primary/20 text-primary h-6 w-6 flex items-center justify-center rounded-sm font-bold text-sm shrink-0">1</div>
+                                    <h4 className="font-bold text-card-foreground mt-0.5">Desde Partner Portal</h4>
+                                </div>
+                                <div className="pl-9 space-y-4">
+                                    <p className="text-sm text-muted-foreground">
+                                        Podrás cerrar momentáneamente tu local para no recibir nuevos pedidos mientras finalizas los que tienes en curso. <span className="font-bold text-card-foreground">Puedes abrir tu local cuando quieras</span> desde Partner Portal o desde tu Sistema de Recepción
+                                    </p>
+                                    
+                                    <div>
+                                        <p className="text-primary font-bold mb-2 text-sm">Estado del local</p>
+                                        <div className="flex items-center gap-4 flex-wrap">
+                                            <div className="border border-primary border-dotted p-2 rounded-md flex items-center gap-2 text-sm bg-primary/10">
+                                                <Clock className="h-4 w-4 text-primary"/>
+                                                <span className="text-primary font-medium">Estado de tu local</span>
+                                            </div>
+                                            <ArrowRight className="h-5 w-5 text-muted-foreground"/>
+                                            <div className="text-sm">
+                                                <p className="flex items-center gap-1 font-medium">Estado de tu local <Info className="inline h-3 w-3 text-muted-foreground"/></p>
+                                                <div className="flex items-center gap-1.5 text-xs">
+                                                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                                                    <span className="text-muted-foreground">Abierto hasta las 23:45 h.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-3">
+                                    <div className="bg-yellow-400 text-yellow-900 h-6 w-6 flex items-center justify-center rounded-sm font-bold text-sm shrink-0">2</div>
+                                    <h4 className="font-bold text-card-foreground mt-0.5">Desde tu sistema de recepción</h4>
+                                </div>
+                                <div className="pl-9 space-y-4">
+                                    <p className="text-sm text-muted-foreground">
+                                        Podrás establecer tu local como <span className="font-bold text-card-foreground">'estado ocupado'</span>, de esta manera recibirás menos pedidos por un periodo de tiempo para que puedas retomar los tiempos en la cocina.
+                                    </p>
+                                    
+                                    <div>
+                                        <p className="text-primary font-bold mb-2 text-sm">Selecciona el estado de tu local</p>
+                                        <div className="flex items-center gap-4">
+                                             <div className="border border-primary border-dotted p-2 rounded-lg inline-block">
+                                                <div className="flex items-center gap-4 bg-card p-2 rounded-lg shadow-sm">
+                                                    <Store className="h-8 w-8 text-muted-foreground" />
+                                                    <div className="flex items-center gap-2 p-1 px-4 rounded-full bg-green-100">
+                                                        <div className="h-2 w-2 rounded-full bg-green-600"></div>
+                                                        <span className="text-sm font-semibold text-green-800">ABIERTO</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ScrollArea>
                 </div>
               )}
             </SheetContent>
