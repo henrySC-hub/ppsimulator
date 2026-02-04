@@ -123,6 +123,7 @@ type Order = {
 export default function HelpPage() {
   const [sheetView, setSheetView] = React.useState('main');
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
+  const [missingInfoReason, setMissingInfoReason] = React.useState<string | null>(null);
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
@@ -214,6 +215,7 @@ export default function HelpPage() {
               if (!open) {
                 setSheetView('main');
                 setSelectedOrder(null);
+                setMissingInfoReason(null);
               }
             }}
           >
@@ -1256,7 +1258,7 @@ export default function HelpPage() {
                       {userIssues.map((issue, index) => (
                         <li key={issue.id}>
                           <button
-                            className="w-full text-left"
+                            className="w-full text-left disabled:opacity-50"
                             onClick={() => {
                               if (issue.id === 'user-cancel-order') {
                                 setSheetView('user-wants-to-cancel-flow');
@@ -1264,8 +1266,11 @@ export default function HelpPage() {
                               if (issue.id === 'user-modify-order') {
                                 setSheetView('user-modify-order-flow');
                               }
+                              if (issue.id === 'user-missing-info') {
+                                setSheetView('user-missing-info-flow');
+                              }
                             }}
-                            disabled={!['user-cancel-order', 'user-modify-order'].includes(issue.id)}
+                            disabled={!['user-cancel-order', 'user-modify-order', 'user-missing-info'].includes(issue.id)}
                           >
                             <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                               <span className="flex-grow">{issue.text}</span>
@@ -1378,6 +1383,43 @@ export default function HelpPage() {
                   </div>
                 </div>
               )}
+              {sheetView === 'user-missing-info-flow' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('user-issues')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">
+                            Me falta información de la orden
+                        </h2>
+                    </div>
+                    <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                        <p className="text-muted-foreground">Indícanos la causa del problema.</p>
+                        <RadioGroup onValueChange={setMissingInfoReason} value={missingInfoReason || ''}>
+                            <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                                <Label htmlFor="r-missing-specs" className="font-normal flex-grow">Faltan especificaciones de la orden (Ej Sabores)</Label>
+                                <RadioGroupItem value="missing-specs" id="r-missing-specs" />
+                            </div>
+                            <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                                <Label htmlFor="r-confusing-notes" className="font-normal flex-grow">Las notas del pedido son confusas</Label>
+                                <RadioGroupItem value="confusing-notes" id="r-confusing-notes" />
+                            </div>
+                            <div className="flex items-center justify-between space-x-2 py-4">
+                                <Label htmlFor="r-other" className="font-normal flex-grow">Otros</Label>
+                                <RadioGroupItem value="other" id="r-other" />
+                            </div>
+                        </RadioGroup>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg" disabled={!missingInfoReason}>Continuar</Button>
+                    </div>
+                </div>
+              )}
             </SheetContent>
           </Sheet>
         </header>
@@ -1481,3 +1523,5 @@ export default function HelpPage() {
     </div>
   );
 }
+
+    
