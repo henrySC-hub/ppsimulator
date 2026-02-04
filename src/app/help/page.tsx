@@ -2,11 +2,11 @@
 
 import {
   ArchiveX,
+  ArrowLeft,
   ChevronRight,
   CreditCard,
   Headphones,
   Landmark,
-  LifeBuoy,
   Mail,
   Radio,
   Search,
@@ -16,12 +16,12 @@ import {
   TrendingUp,
   User,
   UserCog,
-  ArrowLeft,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -30,6 +30,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
@@ -39,6 +40,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { cn } from '@/lib/utils';
 
 const helpTopics = [
   { icon: TrendingUp, text: 'Potenciar tu negocio' },
@@ -107,6 +109,65 @@ export default function HelpPage() {
     { id: 'partners', icon: Trophy, text: 'Programa Socios' },
   ];
 
+  const orders = [
+    {
+      id: 14,
+      orderNumber: '1883628713',
+      date: '01-02-2026, 2:21 p. m.',
+      price: '$10.490',
+      status: 'Terminado',
+    },
+    {
+      id: 13,
+      orderNumber: '1883465842',
+      date: '01-02-2026, 1:08 p. m.',
+      price: '$43.390',
+      status: 'Cancelado',
+    },
+    {
+      id: 12,
+      orderNumber: '1883438302',
+      date: '01-02-2026, 12:39 p. m.',
+      price: '$12.290',
+      status: 'Terminado',
+    },
+    {
+      id: 11,
+      orderNumber: '1883371909',
+      date: '01-02-2026, 11:52 a. m.',
+      price: '$10.280',
+      status: 'Cancelado',
+    },
+    {
+      id: 10,
+      orderNumber: '1883273929',
+      date: '01-02-2026, 11:17 a. m.',
+      price: '$23.290',
+      status: 'Terminado',
+    },
+    {
+      id: 9,
+      orderNumber: '1883273017',
+      date: '01-02-2026, 11:12 a. m.',
+      price: '$27.890',
+      status: 'Cancelado',
+    },
+    {
+      id: 8,
+      orderNumber: '1883273016',
+      date: '01-02-2026, 11:05 a. m.',
+      price: '$15.500',
+      status: 'Terminado',
+    },
+    {
+      id: 7,
+      orderNumber: '1883273015',
+      date: '01-02-2026, 10:55 a. m.',
+      price: '$5.250',
+      status: 'Cancelado',
+    },
+  ];
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -140,12 +201,12 @@ export default function HelpPage() {
                         <li key={topic.text}>
                           <button
                             onClick={() => {
-                              if (topic.id === 'tracking') {
-                                setSheetView('tracking');
+                              if (['tracking', 'issues'].includes(topic.id)) {
+                                setSheetView(topic.id);
                               }
                             }}
                             className="w-full text-left disabled:opacity-50"
-                            disabled={topic.id !== 'tracking'}
+                            disabled={!['tracking', 'issues'].includes(topic.id)}
                           >
                             <div className="flex items-center py-4 text-base font-medium">
                               <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
@@ -186,6 +247,89 @@ export default function HelpPage() {
                       No tienes consultas recientes
                     </p>
                   </div>
+                </div>
+              )}
+              {sheetView === 'issues' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('main')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Problemas con un pedido
+                    </h2>
+                  </div>
+
+                  <div className="p-4 border-b shrink-0">
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="rounded-full"
+                      >
+                        Todas
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="rounded-full"
+                      >
+                        Hoy
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="rounded-full"
+                      >
+                        Ayer
+                      </Button>
+                    </div>
+                  </div>
+
+                  <ScrollArea className="flex-grow bg-background">
+                    <div className="p-4 space-y-3">
+                      {orders.map((order) => (
+                        <div
+                          key={order.id}
+                          className="border rounded-lg p-4 bg-card"
+                        >
+                          <div className="flex justify-between items-start">
+                            <div className="space-y-1">
+                              <p className="text-sm text-muted-foreground">
+                                #{order.id}
+                              </p>
+                              <p className="font-semibold text-card-foreground">
+                                {order.orderNumber}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {order.date}
+                              </p>
+                            </div>
+                            <div className="text-right flex flex-col justify-between items-end h-full space-y-1">
+                              <Badge
+                                className={cn(
+                                  'capitalize text-xs font-semibold',
+                                  order.status === 'Terminado'
+                                    ? 'bg-green-100 text-green-800 border-transparent hover:bg-green-100'
+                                    : 'bg-red-100 text-red-800 border-transparent hover:bg-red-100'
+                                )}
+                              >
+                                {order.status}
+                              </Badge>
+                              <p className="font-semibold pt-4 text-card-foreground">
+                                {order.price}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
                 </div>
               )}
             </SheetContent>
