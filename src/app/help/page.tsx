@@ -3,10 +3,12 @@
 import {
   ArchiveX,
   ChevronRight,
+  CreditCard,
   Headphones,
   Landmark,
   LifeBuoy,
   Mail,
+  Radio,
   Search,
   ShieldCheck,
   Star,
@@ -97,9 +99,9 @@ export default function HelpPage() {
   const onlineHelpTopics = [
     { icon: Mail, text: 'Seguimiento de mis solicitudes', href: '#' },
     { icon: ArchiveX, text: 'Problemas con un pedido', href: '#' },
-    { icon: Landmark, text: 'Finanzas', href: '#' },
+    { icon: CreditCard, text: 'Finanzas', href: '#' },
     { icon: User, text: 'Administración de mi local', href: '#' },
-    { icon: LifeBuoy, text: 'Soporte técnico', href: '#' },
+    { icon: Radio, text: 'Soporte técnico', href: '#' },
     { icon: Trophy, text: 'Programa Socios', href: '#' },
   ];
 
@@ -134,7 +136,7 @@ export default function HelpPage() {
                     <li key={topic.text}>
                       <Link
                         href={topic.href}
-                        className="flex items-center py-4 text-md font-medium"
+                        className="flex items-center py-4 text-base font-medium"
                       >
                         <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
                         <span className="flex-grow">{topic.text}</span>
