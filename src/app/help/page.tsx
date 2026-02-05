@@ -300,9 +300,12 @@ export default function HelpPage() {
                               if (['tracking', 'issues'].includes(topic.id)) {
                                 setSheetView(topic.id);
                               }
+                              if (topic.id === 'admin') {
+                                setSheetView('admin-local');
+                              }
                             }}
                             className="w-full text-left disabled:opacity-50"
-                            disabled={!['tracking', 'issues'].includes(topic.id)}
+                            disabled={!['tracking', 'issues', 'admin'].includes(topic.id)}
                           >
                             <div className="flex items-center py-4 text-base font-medium">
                               <topic.icon className="mr-4 h-5 w-5 text-muted-foreground" />
@@ -2211,6 +2214,90 @@ export default function HelpPage() {
                     <Button className="w-full" size="lg" disabled={selectedNegativeFeedback.length === 0}>Enviar</Button>
                   </div>
                 </div>
+              )}
+              {sheetView === 'admin-local' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('main')}>
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">Administración de mi local</h2>
+                    </div>
+                    <div className="flex-grow">
+                        <ul className="flex flex-col">
+                            <li>
+                                <button className="w-full text-left" onClick={() => setSheetView('manage-local')}>
+                                    <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                        <span>Gestionar mi local</span>
+                                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                    </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              )}
+              {sheetView === 'manage-local' && (
+                  <div className="flex flex-col h-full">
+                      <div className="flex items-center border-b shrink-0">
+                          <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('admin-local')}>
+                              <ArrowLeft className="h-5 w-5" />
+                          </Button>
+                          <h2 className="font-semibold text-lg">Gestionar mi local</h2>
+                      </div>
+                      <div className="flex-grow">
+                          <ul className="flex flex-col">
+                              <li>
+                                  <button className="w-full text-left" onClick={() => setSheetView('view-local-closed')}>
+                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                          <span>Veo mi local cerrado</span>
+                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                      </div>
+                                  </button>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              )}
+              {sheetView === 'view-local-closed' && (
+                  <div className="flex flex-col h-full">
+                      <div className="flex items-center border-b shrink-0">
+                          <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('manage-local')}>
+                              <ArrowLeft className="h-5 w-5" />
+                          </Button>
+                          <h2 className="font-semibold text-lg">Veo mi local cerrado</h2>
+                      </div>
+                      <div className="flex-grow">
+                          <ul className="flex flex-col">
+                              <li>
+                                  <button className="w-full text-left disabled:opacity-50" disabled>
+                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                          <span>¿Verificaste si existe algún cierre en la sección "Estado de tu local"?</span>
+                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                      </div>
+                                  </button>
+                                  <Separator/>
+                              </li>
+                              <li>
+                                  <button className="w-full text-left disabled:opacity-50" disabled>
+                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                          <span>Cómo abrir cierres en el local</span>
+                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                      </div>
+                                  </button>
+                                  <Separator/>
+                              </li>
+                              <li>
+                                  <button className="w-full text-left disabled:opacity-50" disabled>
+                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                          <span>Veo el local abierto pero estoy cerrado en la app</span>
+                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                      </div>
+                                  </button>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
               )}
             </SheetContent>
           </Sheet>
