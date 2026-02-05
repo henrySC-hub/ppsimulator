@@ -132,6 +132,10 @@ export default function HelpPage() {
     (p) => p.id === 'help-illustration-main'
   );
 
+  const [feedbackOrigin, setFeedbackOrigin] = React.useState('main');
+  const [selectedPositiveFeedback, setSelectedPositiveFeedback] = React.useState<string[]>([]);
+  const [selectedNegativeFeedback, setSelectedNegativeFeedback] = React.useState<string[]>([]);
+
   const onlineHelpTopics = [
     { id: 'tracking', icon: Mail, text: 'Seguimiento de mis solicitudes' },
     { id: 'issues', icon: ArchiveX, text: 'Problemas con un pedido' },
@@ -223,6 +227,9 @@ export default function HelpPage() {
                 setNotesIssueReason(null);
                 setChatName('');
                 setOtherProblemDescription('');
+                setFeedbackOrigin('main');
+                setSelectedPositiveFeedback([]);
+                setSelectedNegativeFeedback([]);
               }
             }}
           >
@@ -416,8 +423,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('issue-detail-canceled');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('issue-detail-canceled');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -563,8 +588,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('rider-location');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('rider-location');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -600,8 +643,26 @@ export default function HelpPage() {
                     <div className="p-6 border-t mt-auto bg-background space-y-3">
                       <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                       <div className="flex flex-col gap-2">
-                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                          <Button 
+                            className="w-full border-primary text-primary hover:bg-primary/5" 
+                            variant="outline"
+                            onClick={() => {
+                              setFeedbackOrigin('rider-incomplete-order');
+                              setSheetView('feedback-yes');
+                            }}
+                          >
+                            Sí
+                          </Button>
+                          <Button 
+                            className="w-full border-primary text-primary hover:bg-primary/5" 
+                            variant="outline"
+                            onClick={() => {
+                              setFeedbackOrigin('rider-incomplete-order');
+                              setSheetView('feedback-no');
+                            }}
+                          >
+                            No
+                          </Button>
                       </div>
                     </div>
                   </div>
@@ -633,29 +694,31 @@ export default function HelpPage() {
                         
                         <p className="pt-2">Recuerda que el cliente al contactarse con Atención en Línea recibirá una rápida solución de parte de nuestro equipo especializado por lo que no deberás preocuparte por esto.</p>
                       </div>
-                      <Separator />
-                       <div>
-                         <p className="font-semibold text-card-foreground mb-2">¿Te sirvió la información?</p>
-                         <ul className="flex flex-col">
-                           <li>
-                             <button className="w-full text-left">
-                               <div className="flex items-center justify-between py-2 text-base font-medium">
-                                 <span>Sí</span>
-                                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                               </div>
-                             </button>
-                             <Separator />
-                           </li>
-                           <li>
-                             <button className="w-full text-left">
-                               <div className="flex items-center justify-between py-2 text-base font-medium">
-                                 <span>No</span>
-                                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                               </div>
-                             </button>
-                           </li>
-                         </ul>
-                       </div>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background space-y-3">
+                      <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                      <div className="flex flex-col gap-2">
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('rider-wrong-order');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('rider-wrong-order');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
+                      </div>
                     </div>
                   </div>
               )}
@@ -936,8 +999,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('customer-wants-to-cancel');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('customer-wants-to-cancel');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -1181,7 +1262,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                       <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                       <div className="flex flex-col gap-2">
-                          <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
+                          <Button 
+                            className="w-full border-primary text-primary hover:bg-primary/5" 
+                            variant="outline"
+                            onClick={() => {
+                              setFeedbackOrigin('cancel-missing-products');
+                              setSheetView('feedback-yes');
+                            }}
+                          >
+                            Sí
+                          </Button>
+                          <Button 
+                            className="w-full border-primary text-primary hover:bg-primary/5" 
+                            variant="outline"
+                            onClick={() => {
+                              setFeedbackOrigin('cancel-missing-products');
+                              setSheetView('feedback-no');
+                            }}
+                          >
+                            No
+                          </Button>
                       </div>
                   </div>
                 </div>
@@ -1239,8 +1339,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('delay-in-pickup');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('delay-in-pickup');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -1350,8 +1468,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('user-wants-to-cancel-flow');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('user-wants-to-cancel-flow');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -1390,8 +1526,26 @@ export default function HelpPage() {
                   <div className="p-6 border-t mt-auto bg-background space-y-3">
                     <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
                     <div className="flex flex-col gap-2">
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">Sí</Button>
-                        <Button className="w-full border-primary text-primary hover:bg-primary/5" variant="outline">No</Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('user-modify-order-flow');
+                            setSheetView('feedback-yes');
+                          }}
+                        >
+                          Sí
+                        </Button>
+                        <Button 
+                          className="w-full border-primary text-primary hover:bg-primary/5" 
+                          variant="outline"
+                          onClick={() => {
+                            setFeedbackOrigin('user-modify-order-flow');
+                            setSheetView('feedback-no');
+                          }}
+                        >
+                          No
+                        </Button>
                     </div>
                   </div>
                 </div>
@@ -1752,6 +1906,98 @@ export default function HelpPage() {
                     <Button className="w-full" size="lg" disabled={!chatName}>
                       Chatear con soporte
                     </Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'feedback-yes' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView(feedbackOrigin)}
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Realimentación</h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6 overflow-y-auto text-center">
+                    <div className="flex justify-center">
+                        <div className="bg-primary rounded-lg h-12 w-12 flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4346 7.72509C11.4054 7.72509 12.189 8.01259 12.7854 8.58759C13.394 9.15009 13.6983 9.87509 13.6983 10.7626C13.6983 11.6876 13.3774 12.4418 12.7354 13.0251C12.0933 13.6084 11.294 13.8993 10.3371 13.9001H8.25205V15.8334H6.21955V5.00009H10.4346C11.3129 5.00009 12.0398 5.26676 12.6154 5.80009C13.191 6.33342 13.4796 6.98759 13.4796 7.76259C13.4796 8.45009 13.2433 8.99592 12.7704 9.39592C12.2974 9.78342 11.6948 9.97759 10.9571 9.97509H8.25205V11.1751H10.4346C10.9554 11.1751 11.3783 11.0376 11.7033 10.7626C12.0283 10.4876 12.1908 10.1584 12.1908 9.77509C12.1908 9.35842 12.0283 9.02092 11.7033 8.76259C11.3783 8.50426 10.9554 8.37509 10.4346 8.37509H8.25205V7.72509H10.4346Z" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p className="font-semibold">¿Qué salió bien?</p>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                        {['La información fue fácil de encontrar', 'Gran información', 'Cantidad de información', 'Solucioné mi problema', 'Algo más'].map(reason => (
+                            <Button 
+                                key={reason} 
+                                variant={selectedPositiveFeedback.includes(reason) ? 'secondary' : 'outline'}
+                                className="rounded-full"
+                                onClick={() => {
+                                    setSelectedPositiveFeedback(prev => 
+                                        prev.includes(reason) 
+                                        ? prev.filter(r => r !== reason) 
+                                        : [...prev, reason]
+                                    )
+                                }}
+                            >
+                                {reason}
+                            </Button>
+                        ))}
+                    </div>
+                  </div>
+                  <div className="p-6 border-t mt-auto bg-background">
+                    <Button className="w-full" size="lg" disabled={selectedPositiveFeedback.length === 0}>Enviar</Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'feedback-no' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView(feedbackOrigin)}
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Realimentación</h2>
+                  </div>
+                  <div className="p-6 flex-grow space-y-6 overflow-y-auto text-center">
+                    <div className="flex justify-center">
+                        <div className="bg-primary rounded-lg h-12 w-12 flex items-center justify-center">
+                             <svg width="20" height="20" viewBox="0 0 20 20" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4346 7.72509C11.4054 7.72509 12.189 8.01259 12.7854 8.58759C13.394 9.15009 13.6983 9.87509 13.6983 10.7626C13.6983 11.6876 13.3774 12.4418 12.7354 13.0251C12.0933 13.6084 11.294 13.8993 10.3371 13.9001H8.25205V15.8334H6.21955V5.00009H10.4346C11.3129 5.00009 12.0398 5.26676 12.6154 5.80009C13.191 6.33342 13.4796 6.98759 13.4796 7.76259C13.4796 8.45009 13.2433 8.99592 12.7704 9.39592C12.2974 9.78342 11.6948 9.97759 10.9571 9.97509H8.25205V11.1751H10.4346C10.9554 11.1751 11.3783 11.0376 11.7033 10.7626C12.0283 10.4876 12.1908 10.1584 12.1908 9.77509C12.1908 9.35842 12.0283 9.02092 11.7033 8.76259C11.3783 8.50426 10.9554 8.37509 10.4346 8.37509H8.25205V7.72509H10.4346Z" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <p className="font-semibold">¿Qué salió mal?</p>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                         {['La información no fue clara', 'No solucionó mi problema', 'Información incorrecta', 'Poca información', 'Algo más'].map(reason => (
+                            <Button 
+                                key={reason} 
+                                variant={selectedNegativeFeedback.includes(reason) ? 'secondary' : 'outline'}
+                                className="rounded-full"
+                                onClick={() => {
+                                    setSelectedNegativeFeedback(prev => 
+                                        prev.includes(reason) 
+                                        ? prev.filter(r => r !== reason) 
+                                        : [...prev, reason]
+                                    )
+                                }}
+                            >
+                                {reason}
+                            </Button>
+                        ))}
+                    </div>
+                  </div>
+                  <div className="p-6 border-t mt-auto bg-background">
+                    <Button className="w-full" size="lg" disabled={selectedNegativeFeedback.length === 0}>Enviar</Button>
                   </div>
                 </div>
               )}
