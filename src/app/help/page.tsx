@@ -1279,8 +1279,11 @@ export default function HelpPage() {
                               if (issue.id === 'user-notes-issue') {
                                 setSheetView('user-notes-issue-flow');
                               }
+                               if (issue.id === 'user-fake-order') {
+                                setSheetView('user-fake-order-flow');
+                              }
                             }}
-                            disabled={!['user-cancel-order', 'user-modify-order', 'user-missing-info', 'user-notes-issue'].includes(issue.id)}
+                            disabled={!['user-cancel-order', 'user-modify-order', 'user-missing-info', 'user-notes-issue', 'user-fake-order'].includes(issue.id)}
                           >
                             <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                               <span className="flex-grow">{issue.text}</span>
@@ -1685,6 +1688,71 @@ export default function HelpPage() {
                             Chatear con soporte
                         </Button>
                     </div>
+                </div>
+              )}
+              {sheetView === 'user-fake-order-flow' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('user-issues')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Orden dudosa / falsa
+                    </h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6">
+                      <div className="rounded-lg bg-primary text-primary-foreground p-4 text-center">
+                          <h3 className="text-xl font-bold">Orden dudosa</h3>
+                          <div className="bg-white text-primary mt-2 py-1 px-4 inline-block rounded-md text-sm font-semibold">
+                              Revision de fraude
+                          </div>
+                      </div>
+                      
+                      <div className="space-y-4 text-sm">
+                          <div className="text-center relative pb-2">
+                              <p className="font-bold text-card-foreground">¿Qué sucede antes de que se genere una nueva orden en la App? 🕵️</p>
+                              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/4 h-0.5 bg-yellow-400"></div>
+                          </div>
+
+                          <p className="text-muted-foreground">
+                              Antes de notificar al local, <span className="font-bold text-card-foreground">la orden es revisada por nuestro algoritmo de detección de fraude</span> en la aplicación, validando:
+                          </p>
+                          <div className="space-y-2 text-muted-foreground">
+                              <p>1. <span className="font-bold text-card-foreground">La confiabilidad del usuario</span>, basándose en comportamientos anteriores en la App.</p>
+                              <p>2. <span className="font-bold text-card-foreground">Las condiciones de la orden</span>, como el monto, la dirección de entrega, la distancia, etc.</p>
+                              <p>3. Realizando cruces con muchas otras variables para asegurarnos de que puedas <span className="font-bold text-card-foreground">continuar con la orden sin inconvenientes</span> 🙌</p>
+                          </div>
+                          <p className="text-muted-foreground">
+                              Además, contamos con un grupo de especialistas que estudian situaciones potencialmente fraudulentas en las actividades diarias.
+                          </p>
+                          <p className="text-muted-foreground">
+                              Si crees que la orden que tienes en curso es fraudulenta, tendrás disponible un botón para comunicarte con un agente.
+                          </p>
+                      </div>
+
+                      <Separator />
+
+                      <div className="space-y-2 text-sm">
+                          <p className="text-muted-foreground">Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                          <Input 
+                              placeholder="Escribe tu nombre aquí" 
+                              value={chatName}
+                              onChange={(e) => setChatName(e.target.value)}
+                          />
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t bg-background">
+                    <Button className="w-full" size="lg" disabled={!chatName}>
+                      Chatear con soporte
+                    </Button>
+                  </div>
                 </div>
               )}
             </SheetContent>
