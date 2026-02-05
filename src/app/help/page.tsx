@@ -125,6 +125,7 @@ export default function HelpPage() {
   const [sheetView, setSheetView] = React.useState('main');
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
   const [missingInfoReason, setMissingInfoReason] = React.useState<string | null>(null);
+  const [notesIssueReason, setNotesIssueReason] = React.useState<string | null>(null);
   const [chatName, setChatName] = React.useState('');
   const [otherProblemDescription, setOtherProblemDescription] = React.useState('');
   const mainIllustration = PlaceHolderImages.find(
@@ -219,6 +220,7 @@ export default function HelpPage() {
                 setSheetView('main');
                 setSelectedOrder(null);
                 setMissingInfoReason(null);
+                setNotesIssueReason(null);
                 setChatName('');
                 setOtherProblemDescription('');
               }
@@ -1274,8 +1276,11 @@ export default function HelpPage() {
                               if (issue.id === 'user-missing-info') {
                                 setSheetView('user-missing-info-flow');
                               }
+                              if (issue.id === 'user-notes-issue') {
+                                setSheetView('user-notes-issue-flow');
+                              }
                             }}
-                            disabled={!['user-cancel-order', 'user-modify-order', 'user-missing-info'].includes(issue.id)}
+                            disabled={!['user-cancel-order', 'user-modify-order', 'user-missing-info', 'user-notes-issue'].includes(issue.id)}
                           >
                             <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
                               <span className="flex-grow">{issue.text}</span>
@@ -1578,6 +1583,59 @@ export default function HelpPage() {
                       Chatear con soporte
                     </Button>
                   </div>
+                </div>
+              )}
+               {sheetView === 'user-notes-issue-flow' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('user-issues')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">
+                            Inconveniente con las notas del pedido
+                        </h2>
+                    </div>
+                    <div className="p-6 flex-grow space-y-6 overflow-y-auto">
+                        <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                            Te recomendamos configurar tu menú de manera que tus clientes puedan personalizar su orden fácilmente. Cuantas más opciones y adicionales ofrezcas en tu producto, menos inconvenientes como este tendrás en el futuro.
+                          </p>
+                          <p>
+                            Recuerda que puedes editar tu menú ingresando a la sección: Menú - Opciones y Adicionales en Partner Portal.
+                          </p>
+                        </div>
+                        <div className="space-y-4">
+                          <p className="font-semibold text-card-foreground">¿Cual es el inconveniente con las notas?</p>
+                          <RadioGroup onValueChange={setNotesIssueReason} value={notesIssueReason || ''}>
+                              <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                                  <Label htmlFor="r-notes-value" className="font-normal flex-grow">Modifican el valor total del pedido</Label>
+                                  <RadioGroupItem value="value-change" id="r-notes-value" />
+                              </div>
+                              <div className="flex items-center justify-between space-x-2 py-4 border-b">
+                                  <Label htmlFor="r-notes-confusing" className="font-normal flex-grow">Las notas son confusas</Label>
+                                  <RadioGroupItem value="confusing" id="r-notes-confusing" />
+                              </div>
+                              <div className="flex items-center justify-between space-x-2 py-4">
+                                  <Label htmlFor="r-notes-other" className="font-normal flex-grow">Otros</Label>
+                                  <RadioGroupItem value="other" id="r-notes-other" />
+                              </div>
+                          </RadioGroup>
+                        </div>
+                    </div>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button
+                          className="w-full"
+                          size="lg"
+                          disabled={!notesIssueReason}
+                        >
+                          Continuar
+                        </Button>
+                    </div>
                 </div>
               )}
             </SheetContent>
