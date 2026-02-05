@@ -1425,6 +1425,8 @@ export default function HelpPage() {
                           onClick={() => {
                             if (missingInfoReason === 'missing-specs') {
                               setSheetView('missing-specs-details');
+                            } else if (missingInfoReason === 'confusing-notes') {
+                              setSheetView('confusing-notes-details');
                             }
                           }}
                         >
@@ -1469,6 +1471,46 @@ export default function HelpPage() {
                       <Separator />
                       <div className="space-y-4 pt-4">
                         <p className="font-semibold text-card-foreground">Si necesitas ayuda con una orden en curso, chatea con un agente.</p>
+                        <p>Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                        <Input 
+                          placeholder="Escribe tu nombre aquí" 
+                          value={chatName}
+                          onChange={(e) => setChatName(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t bg-background">
+                    <Button className="w-full" size="lg" disabled={!chatName}>
+                      Chatear con soporte
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'confusing-notes-details' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('user-missing-info-flow')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Inconveniente con las notas del pedido
+                    </h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6 text-sm text-muted-foreground">
+                      <p>
+                        Contactate con soporte, el agente intentará comunicarse con el cliente para solucionar el inconveniente.
+                      </p>
+                      <p>
+                        En el caso de que el cliente no conteste te pedimos enviar el pedido sin considerar las indicaciones realizadas por el cliente.
+                      </p>
+                      <div className="space-y-4 pt-4">
                         <p>Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
                         <Input 
                           placeholder="Escribe tu nombre aquí" 
