@@ -119,7 +119,7 @@ type Order = {
   orderNumber: string;
   date: string;
   price: string;
-  status: 'Terminado' | 'Cancelado';
+  status: 'Terminado' | 'Cancelado' | 'Preparando' | 'Aceptado';
 };
 
 export default function HelpPage() {
@@ -151,6 +151,20 @@ export default function HelpPage() {
   ];
 
   const orders: Order[] = [
+    {
+      id: 16,
+      orderNumber: '1883628715',
+      date: '01-02-2026, 2:30 p. m.',
+      price: '$15.000',
+      status: 'Aceptado',
+    },
+    {
+      id: 15,
+      orderNumber: '1883628714',
+      date: '01-02-2026, 2:25 p. m.',
+      price: '$20.500',
+      status: 'Preparando',
+    },
     {
       id: 14,
       orderNumber: '1883628713',
@@ -370,10 +384,17 @@ export default function HelpPage() {
                               <div className="text-right flex flex-col justify-between items-end h-full space-y-1">
                                 <Badge
                                   className={cn(
-                                    'capitalize text-xs font-semibold',
-                                    order.status === 'Terminado'
-                                      ? 'bg-green-100 text-green-800 border-transparent hover:bg-green-100'
-                                      : 'bg-red-100 text-red-800 border-transparent hover:bg-red-100'
+                                    'capitalize text-xs font-semibold border-transparent',
+                                    {
+                                      'bg-green-100 text-green-800 hover:bg-green-100':
+                                        order.status === 'Terminado',
+                                      'bg-red-100 text-red-800 hover:bg-red-100':
+                                        order.status === 'Cancelado',
+                                      'bg-purple-100 text-purple-800 hover:bg-purple-100':
+                                        order.status === 'Aceptado',
+                                      'bg-yellow-100 text-yellow-800 hover:bg-yellow-100':
+                                        order.status === 'Preparando',
+                                    }
                                   )}
                                 >
                                   {order.status}
