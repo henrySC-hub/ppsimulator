@@ -138,6 +138,7 @@ export default function HelpPage() {
   const [selectedNegativeFeedback, setSelectedNegativeFeedback] = React.useState<string[]>([]);
   const [riderReportReason, setRiderReportReason] = React.useState<string | null>(null);
   const [verbalReportDetails, setVerbalReportDetails] = React.useState('');
+  const [physicalReportDetails, setPhysicalReportDetails] = React.useState('');
 
 
   const onlineHelpTopics = [
@@ -236,6 +237,7 @@ export default function HelpPage() {
                 setSelectedNegativeFeedback([]);
                 setRiderReportReason(null);
                 setVerbalReportDetails('');
+                setPhysicalReportDetails('');
               }
             }}
           >
@@ -765,6 +767,8 @@ export default function HelpPage() {
                       onClick={() => {
                         if (riderReportReason === 'verbal') {
                           setSheetView('report-rider-verbal');
+                        } else if (riderReportReason === 'fisica') {
+                          setSheetView('report-rider-physical');
                         }
                       }}
                     >
@@ -818,6 +822,54 @@ export default function HelpPage() {
                     </ScrollArea>
                     <div className="p-6 border-t mt-auto bg-background">
                         <Button className="w-full" size="lg" disabled={!verbalReportDetails}>Enviar</Button>
+                    </div>
+                </div>
+              )}
+              {sheetView === 'report-rider-physical' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('report-rider')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">Agresión física</h2>
+                    </div>
+                    <ScrollArea className="flex-grow">
+                      <div className="p-6 space-y-6">
+                          <div className="space-y-4 text-sm text-muted-foreground">
+                              <p>
+                                  Nuestro equipo revisará tu reporte y compartirá esta información con el área correspondiente para que pueda tomar las acciones necesarias. Podrás hacer seguimiento de este caso en la sección <Link href="#" onClick={(e) => { e.preventDefault(); setSheetView('tracking'); }} className="text-primary underline">Seguimiento de mis solicitudes</Link>
+                              </p>
+                              <p>
+                                  Gracias por ayudarnos a mejorar la experiencia para todos.
+                              </p>
+                              <p>
+                                  Si tienes, adjunta una foto o video que nos ayude a entender mejor lo sucedido.
+                              </p>
+                          </div>
+                          
+                          <div className="border border-dashed rounded-lg p-6 flex items-center justify-around bg-background">
+                              <FileText className="h-16 w-16 text-muted-foreground/20" />
+                              <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 hover:text-primary">Cargar archivo</Button>
+                          </div>
+
+                          <div className="space-y-2">
+                              <Label htmlFor="report-details-physical" className="text-card-foreground font-semibold">Detalla lo sucedido</Label>
+                              <Textarea 
+                                  id="report-details-physical" 
+                                  placeholder="escribe aquí..." 
+                                  value={physicalReportDetails} 
+                                  onChange={(e) => setPhysicalReportDetails(e.target.value)} 
+                              />
+                          </div>
+                      </div>
+                    </ScrollArea>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg" disabled={!physicalReportDetails}>Enviar</Button>
                     </div>
                 </div>
               )}
