@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Clock,
   CreditCard,
+  FileText,
   Headphones,
   Info,
   Landmark,
@@ -135,6 +136,9 @@ export default function HelpPage() {
   const [feedbackOrigin, setFeedbackOrigin] = React.useState('main');
   const [selectedPositiveFeedback, setSelectedPositiveFeedback] = React.useState<string[]>([]);
   const [selectedNegativeFeedback, setSelectedNegativeFeedback] = React.useState<string[]>([]);
+  const [riderReportReason, setRiderReportReason] = React.useState<string | null>(null);
+  const [verbalReportDetails, setVerbalReportDetails] = React.useState('');
+
 
   const onlineHelpTopics = [
     { id: 'tracking', icon: Mail, text: 'Seguimiento de mis solicitudes' },
@@ -230,6 +234,8 @@ export default function HelpPage() {
                 setFeedbackOrigin('main');
                 setSelectedPositiveFeedback([]);
                 setSelectedNegativeFeedback([]);
+                setRiderReportReason(null);
+                setVerbalReportDetails('');
               }
             }}
           >
@@ -740,7 +746,7 @@ export default function HelpPage() {
                         <p className="font-bold text-card-foreground">Lamentamos lo sucedido.</p>
                         <p className="text-muted-foreground">Sabemos que las interacciones negativas pueden ser incómodas, y estamos aquí para escucharte.</p>
                     </div>
-                    <RadioGroup>
+                    <RadioGroup onValueChange={setRiderReportReason} value={riderReportReason ?? ''}>
                         <div className="flex items-center justify-between space-x-2 py-4 border-b">
                             <Label htmlFor="r-verbal" className="font-normal flex-grow">Agresión verbal</Label>
                             <RadioGroupItem value="verbal" id="r-verbal" />
@@ -752,8 +758,67 @@ export default function HelpPage() {
                     </RadioGroup>
                   </div>
                   <div className="p-6 border-t mt-auto bg-background">
-                    <Button className="w-full" size="lg" disabled>Continuar</Button>
+                    <Button 
+                      className="w-full" 
+                      size="lg" 
+                      disabled={!riderReportReason}
+                      onClick={() => {
+                        if (riderReportReason === 'verbal') {
+                          setSheetView('report-rider-verbal');
+                        }
+                      }}
+                    >
+                      Continuar
+                    </Button>
                   </div>
+                </div>
+              )}
+              {sheetView === 'report-rider-verbal' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('report-rider')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">Agresión verbal</h2>
+                    </div>
+                    <ScrollArea className="flex-grow">
+                      <div className="p-6 space-y-6">
+                          <div className="space-y-4 text-sm text-muted-foreground">
+                              <p>
+                                  Nuestro equipo revisará tu reporte y compartirá esta información con el área correspondiente para que pueda tomar las acciones necesarias. Podrás hacer seguimiento de este caso en la sección <Link href="#" onClick={(e) => { e.preventDefault(); setSheetView('tracking'); }} className="text-primary underline">Seguimiento de mis solicitudes</Link>
+                              </p>
+                              <p>
+                                  Gracias por ayudarnos a mejorar la experiencia para todos.
+                              </p>
+                              <p>
+                                  Si tienes, adjunta una foto o video que nos ayude a entender mejor lo sucedido.
+                              </p>
+                          </div>
+                          
+                          <div className="border border-dashed rounded-lg p-6 flex items-center justify-around bg-background">
+                              <FileText className="h-16 w-16 text-muted-foreground/20" />
+                              <Button variant="outline" className="border-primary text-primary hover:bg-primary/5 hover:text-primary">Cargar archivo</Button>
+                          </div>
+
+                          <div className="space-y-2">
+                              <Label htmlFor="report-details" className="text-card-foreground font-semibold">Detalla lo sucedido</Label>
+                              <Textarea 
+                                  id="report-details" 
+                                  placeholder="escribe aquí..." 
+                                  value={verbalReportDetails} 
+                                  onChange={(e) => setVerbalReportDetails(e.target.value)} 
+                              />
+                          </div>
+                      </div>
+                    </ScrollArea>
+                    <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg" disabled={!verbalReportDetails}>Enviar</Button>
+                    </div>
                 </div>
               )}
               {sheetView === 'local-issues' && (
@@ -2104,5 +2169,3 @@ export default function HelpPage() {
     </div>
   );
 }
-
-    
