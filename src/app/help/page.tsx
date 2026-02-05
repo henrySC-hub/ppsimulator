@@ -922,8 +922,8 @@ export default function HelpPage() {
                           </div>
                           
                           <div className="relative w-full h-3 rounded-full overflow-hidden flex">
-                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fcd3e8'}}></div>
-                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fff100'}}></div>
+                            <div className="h-full" style={{backgroundColor: '#fcd3e8', "width":"20%"}}></div>
+                            <div className="h-full" style={{backgroundColor: '#fff100', "width":"20%"}}></div>
                             <div className="h-full bg-primary flex-grow"></div>
                             <div className="absolute inset-0 flex items-center justify-end pr-2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -1333,8 +1333,8 @@ export default function HelpPage() {
                           </div>
                           
                           <div className="relative w-full h-3 rounded-full overflow-hidden flex">
-                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fcd3e8'}}></div>
-                            <div className="h-full" style={{"width":"20%", backgroundColor: '#fff100'}}></div>
+                            <div className="h-full" style={{backgroundColor: '#fcd3e8', "width":"20%"}}></div>
+                            <div className="h-full" style={{backgroundColor: '#fff100', "width":"20%"}}></div>
                             <div className="h-full bg-primary flex-grow"></div>
                             <div className="absolute inset-0 flex items-center justify-end pr-2">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -1632,8 +1632,57 @@ export default function HelpPage() {
                           className="w-full"
                           size="lg"
                           disabled={!notesIssueReason}
+                          onClick={() => {
+                            if (notesIssueReason === 'value-change') {
+                              setSheetView('notes-issue-chat');
+                            } else if (notesIssueReason === 'confusing') {
+                              setSheetView('notes-issue-chat');
+                            } else if (notesIssueReason === 'other') {
+                              setSheetView('notes-issue-chat');
+                            }
+                          }}
                         >
                           Continuar
+                        </Button>
+                    </div>
+                </div>
+              )}
+               {sheetView === 'notes-issue-chat' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-14 w-14"
+                            onClick={() => setSheetView('user-notes-issue-flow')}
+                        >
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">
+                            Inconveniente con las notas del pedido
+                        </h2>
+                    </div>
+                    <ScrollArea className="flex-grow">
+                        <div className="p-6 space-y-6 text-sm text-muted-foreground">
+                            <p>
+                                Contactate con soporte, el agente intentará comunicarse con el cliente para solucionar el inconveniente.
+                            </p>
+                            <p>
+                                En el caso de que el cliente no conteste te pedimos enviar el pedido sin considerar las indicaciones realizadas por el cliente.
+                            </p>
+                            <div className="space-y-4 pt-4">
+                                <p>Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                                <Input 
+                                    placeholder="Escribe tu nombre aquí" 
+                                    value={chatName}
+                                    onChange={(e) => setChatName(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    </ScrollArea>
+                    <div className="p-6 border-t bg-background">
+                        <Button className="w-full" size="lg" disabled={!chatName}>
+                            Chatear con soporte
                         </Button>
                     </div>
                 </div>
