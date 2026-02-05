@@ -2543,24 +2543,52 @@ export default function HelpPage() {
                       </div>
                       <ScrollArea className="flex-grow">
                         <div className="p-6 space-y-6">
-                          <h3 className="font-bold text-lg">¿Estás seguro que está todo bien?</h3>
-                          <p className="text-sm text-muted-foreground">Revisá que tu sistema de recepción esté encendido y conectado a internet.</p>
-                          <p className="text-sm text-muted-foreground">Para continuar, chateá con un agente</p>
-                          <Separator />
-                          <div className="space-y-2">
-                              <p className="font-semibold text-card-foreground text-sm">Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
-                              <Input 
-                                  placeholder="Escribe tu nombre aquí" 
-                                  value={chatName}
-                                  onChange={(e) => setChatName(e.target.value)}
-                              />
-                          </div>
+                            <div className="flex justify-between items-center">
+                                <h3 className="font-bold text-card-foreground">Artículos populares</h3>
+                                <Link href="#" className="text-primary text-sm font-semibold flex items-center gap-1">
+                                    Ver todos <ChevronRight className="h-4 w-4" />
+                                </Link>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                                <div className="border rounded-lg p-3 space-y-1">
+                                    <p className="font-bold">Construyendo el pedido perfecto</p>
+                                    <p className="text-xs text-muted-foreground">La clave del éxito en la app está en que todos tus</p>
+                                </div>
+                                <div className="border rounded-lg p-3 space-y-1">
+                                    <p className="font-bold">Sistema Go (para Restaurantes y Cafés)</p>
+                                    <p className="text-xs text-muted-foreground">Encuentra aquí el detalle de todas las</p>
+                                </div>
+                            </div>
+                            <Separator/>
+                             <p className="text-sm text-muted-foreground">
+                                Esto se debe a que en momentos excepcionales cuando estamos frente a situaciones de alta demanda o factores climáticos, se reduce el área de entrega de tu local de manera momentánea para garantizar que tus productos lleguen al usuario a tiempo y en perfectas condiciones. Tu local puede verse como cerrado desde la app si la dirección de entrega se encuentra fuera del área en ese momento. Cuando la situación se normaliza, el área vuelve a su tamaño original. ¡De esta forma, siempre brindamos la mejor experiencia a tus clientes! Para más información puedes consultar en la sección aprendizaje: <Link href="#" className="text-primary underline font-semibold">Servicio de logística Pedidos Ya.</Link>
+                            </p>
                         </div>
                       </ScrollArea>
-                      <div className="p-6 border-t mt-auto bg-background">
-                        <Button className="w-full" size="lg" disabled={!chatName}>
-                          Chatear con soporte
-                        </Button>
+                      <div className="p-6 border-t mt-auto bg-background space-y-3">
+                        <p className="text-center font-semibold text-sm">¿Te sirvió esta información?</p>
+                        <div className="flex flex-col gap-2">
+                            <Button 
+                              className="w-full border-primary text-primary hover:bg-primary/5" 
+                              variant="outline"
+                              onClick={() => {
+                                setFeedbackOrigin('open-but-closed-in-app');
+                                setSheetView('feedback-yes');
+                              }}
+                            >
+                              Sí
+                            </Button>
+                            <Button 
+                              className="w-full border-primary text-primary hover:bg-primary/5" 
+                              variant="outline"
+                              onClick={() => {
+                                setFeedbackOrigin('open-but-closed-in-app');
+                                setSheetView('feedback-no');
+                              }}
+                            >
+                              No
+                            </Button>
+                        </div>
                       </div>
                   </div>
               )}
