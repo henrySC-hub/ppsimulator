@@ -197,10 +197,17 @@ export default function HelpPage() {
 
   const handleOrderClick = (order: Order) => {
     setSelectedOrder(order);
-    if (order.status === 'Cancelado') {
-      setSheetView('issue-detail-canceled');
-    } else {
-      setSheetView('issue-detail-finished');
+    switch (order.status) {
+      case 'Aceptado':
+      case 'Preparando':
+      case 'Terminado':
+        setSheetView('issue-detail-finished');
+        break;
+      case 'Cancelado':
+        setSheetView('issue-detail-canceled');
+        break;
+      default:
+        break;
     }
   };
 
