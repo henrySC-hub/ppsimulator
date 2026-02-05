@@ -119,7 +119,7 @@ type Order = {
   orderNumber: string;
   date: string;
   price: string;
-  status: 'Terminado' | 'Cancelado' | 'Preparando' | 'Aceptado';
+  status: 'Terminado' | 'Cancelado' | 'Preparando' | 'Aceptado' | 'Llegando';
 };
 
 export default function HelpPage() {
@@ -151,6 +151,13 @@ export default function HelpPage() {
   ];
 
   const orders: Order[] = [
+    {
+      id: 17,
+      orderNumber: '1883628716',
+      date: '01-02-2026, 2:35 p. m.',
+      price: '$25.000',
+      status: 'Llegando',
+    },
     {
       id: 16,
       orderNumber: '1883628715',
@@ -201,6 +208,7 @@ export default function HelpPage() {
       case 'Aceptado':
       case 'Preparando':
       case 'Terminado':
+      case 'Llegando':
         setSheetView('issue-detail-finished');
         break;
       case 'Cancelado':
@@ -401,6 +409,8 @@ export default function HelpPage() {
                                         order.status === 'Aceptado',
                                       'bg-yellow-100 text-yellow-800 hover:bg-yellow-100':
                                         order.status === 'Preparando',
+                                      'bg-blue-100 text-blue-800 hover:bg-blue-100':
+                                        order.status === 'Llegando',
                                     }
                                   )}
                                 >
