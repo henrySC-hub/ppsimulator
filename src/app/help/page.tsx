@@ -2458,42 +2458,109 @@ export default function HelpPage() {
                   </div>
               )}
               {sheetView === 'view-local-closed' && (
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center border-b shrink-0">
+                        <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('manage-local')}>
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="font-semibold text-lg">Veo mi local cerrado</h2>
+                    </div>
+                    <div className="flex-grow">
+                        <ul className="flex flex-col">
+                            <li>
+                                <button className="w-full text-left disabled:opacity-50" disabled>
+                                    <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                        <span>¿Verificaste si existe algún cierre en la sección "Estado de tu local"?</span>
+                                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                    </div>
+                                </button>
+                                <Separator/>
+                            </li>
+                            <li>
+                                <button className="w-full text-left" onClick={() => setSheetView('how-to-open-closures')}>
+                                    <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                        <span>Cómo abrir cierres en el local</span>
+                                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                    </div>
+                                </button>
+                                <Separator/>
+                            </li>
+                            <li>
+                                <button className="w-full text-left" onClick={() => setSheetView('open-but-closed-in-app')}>
+                                    <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
+                                        <span>Veo el local abierto pero estoy cerrado en la app</span>
+                                        <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                                    </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              )}
+              {sheetView === 'how-to-open-closures' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('view-local-closed')}>
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">Cómo abrir cierres en el local</h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6">
+                      <h3 className="font-bold text-lg">¿Cómo abrir tu local en el Portal?</h3>
+                      <p className="text-sm text-muted-foreground">Los cierres generados desde tu Portal se pueden dar por 3 situaciones:</p>
+                      <ol className="list-decimal list-inside space-y-3 text-sm text-muted-foreground">
+                        <li><span className="font-bold text-card-foreground">Chequea que tu local esté abierto en Estado de tu local</span>, asegúrate que el switch esté encendido (en verde).</li>
+                        <li><span className="font-bold text-card-foreground">Horarios:</span> Dentro de esta sección, puedes encontrartus horarios, asegúrate de que estén bien configurados dentro de "Horario regular"</li>
+                        <li><span className="font-bold text-card-foreground">Fechas especiales:</span> Esta información la podrás encontrar dentro de tus horarios, cuentas con "Fechas especiales" verifica que no tengas ninguna fecha especial creada.</li>
+                      </ol>
+                      <p className="text-sm text-muted-foreground">En caso de que no logres abrir tu local, puedes contactarte con nuestro equipo de soporte</p>
+                      <Separator />
+                      <div className="space-y-2">
+                          <p className="font-semibold text-card-foreground text-sm">Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                          <Input 
+                              placeholder="Escribe tu nombre aquí" 
+                              value={chatName}
+                              onChange={(e) => setChatName(e.target.value)}
+                          />
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t mt-auto bg-background">
+                    <Button className="w-full" size="lg" disabled={!chatName}>
+                      Chatear con soporte
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'open-but-closed-in-app' && (
                   <div className="flex flex-col h-full">
                       <div className="flex items-center border-b shrink-0">
-                          <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('manage-local')}>
+                          <Button variant="ghost" size="icon" className="h-14 w-14" onClick={() => setSheetView('view-local-closed')}>
                               <ArrowLeft className="h-5 w-5" />
                           </Button>
-                          <h2 className="font-semibold text-lg">Veo mi local cerrado</h2>
+                          <h2 className="font-semibold text-lg truncate">Veo el local abierto pero estoy cerrado...</h2>
                       </div>
-                      <div className="flex-grow">
-                          <ul className="flex flex-col">
-                              <li>
-                                  <button className="w-full text-left disabled:opacity-50" disabled>
-                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                                          <span>¿Verificaste si existe algún cierre en la sección "Estado de tu local"?</span>
-                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                                      </div>
-                                  </button>
-                                  <Separator/>
-                              </li>
-                              <li>
-                                  <button className="w-full text-left disabled:opacity-50" disabled>
-                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                                          <span>Cómo abrir cierres en el local</span>
-                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                                      </div>
-                                  </button>
-                                  <Separator/>
-                              </li>
-                              <li>
-                                  <button className="w-full text-left disabled:opacity-50" disabled>
-                                      <div className="flex items-center justify-between py-4 px-6 text-base font-medium">
-                                          <span>Veo el local abierto pero estoy cerrado en la app</span>
-                                          <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                                      </div>
-                                  </button>
-                              </li>
-                          </ul>
+                      <ScrollArea className="flex-grow">
+                        <div className="p-6 space-y-6">
+                          <h3 className="font-bold text-lg">¿Estás seguro que está todo bien?</h3>
+                          <p className="text-sm text-muted-foreground">Revisá que tu sistema de recepción esté encendido y conectado a internet.</p>
+                          <p className="text-sm text-muted-foreground">Para continuar, chateá con un agente</p>
+                          <Separator />
+                          <div className="space-y-2">
+                              <p className="font-semibold text-card-foreground text-sm">Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                              <Input 
+                                  placeholder="Escribe tu nombre aquí" 
+                                  value={chatName}
+                                  onChange={(e) => setChatName(e.target.value)}
+                              />
+                          </div>
+                        </div>
+                      </ScrollArea>
+                      <div className="p-6 border-t mt-auto bg-background">
+                        <Button className="w-full" size="lg" disabled={!chatName}>
+                          Chatear con soporte
+                        </Button>
                       </div>
                   </div>
               )}
