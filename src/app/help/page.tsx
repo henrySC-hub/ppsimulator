@@ -57,6 +57,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { Textarea } from '@/components/ui/textarea';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 
@@ -125,6 +126,7 @@ export default function HelpPage() {
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
   const [missingInfoReason, setMissingInfoReason] = React.useState<string | null>(null);
   const [chatName, setChatName] = React.useState('');
+  const [otherProblemDescription, setOtherProblemDescription] = React.useState('');
   const mainIllustration = PlaceHolderImages.find(
     (p) => p.id === 'help-illustration-main'
   );
@@ -218,6 +220,7 @@ export default function HelpPage() {
                 setSelectedOrder(null);
                 setMissingInfoReason(null);
                 setChatName('');
+                setOtherProblemDescription('');
               }
             }}
           >
@@ -395,7 +398,7 @@ export default function HelpPage() {
                         No es necesario que te comuniques cuando se cancela la orden, ya que <span className="font-bold text-card-foreground">la devolución es automática</span>.
                       </p>
                       <p>
-                        Recuerda que puedes consultar tu estado de cuenta semanal en la sección <Link href="#" className="text-primary underline font-semibold">Finanzas</Link>. Además, puedes conocer más sobre el proceso de pago en la sección de <Link href="#" className="text-primary underline font-semibold">Aprendizaje</Link>.
+                        Recuerda que puedes consultar tu estado de cuenta semanal en la sección de <Link href="#" className="text-primary underline font-semibold">Finanzas</Link>. Además, puedes conocer más sobre el proceso de pago en la sección de <Link href="#" className="text-primary underline font-semibold">Aprendizaje</Link>.
                       </p>
                     </div>
                     
@@ -1427,6 +1430,8 @@ export default function HelpPage() {
                               setSheetView('missing-specs-details');
                             } else if (missingInfoReason === 'confusing-notes') {
                               setSheetView('confusing-notes-details');
+                            } else if (missingInfoReason === 'other') {
+                              setSheetView('other-missing-info-details');
                             }
                           }}
                         >
@@ -1522,6 +1527,54 @@ export default function HelpPage() {
                   </ScrollArea>
                   <div className="p-6 border-t bg-background">
                     <Button className="w-full" size="lg" disabled={!chatName}>
+                      Chatear con soporte
+                    </Button>
+                  </div>
+                </div>
+              )}
+              {sheetView === 'other-missing-info-details' && (
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center border-b shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-14 w-14"
+                      onClick={() => setSheetView('user-missing-info-flow')}
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                    <h2 className="font-semibold text-lg">
+                      Me falta información de la orden
+                    </h2>
+                  </div>
+                  <ScrollArea className="flex-grow">
+                    <div className="p-6 space-y-6 text-sm text-muted-foreground">
+                      <p>
+                        Recuerda configurar adecuadamente el menú en el perfil del establecimiento para que tus clientes puedan encontrar las opciones y especificaciones que deseen solicitar y así tener una mejor experiencia de compra en tu local.
+                      </p>
+                      <div className="space-y-2">
+                        <p>Antes de conectarte con un agente, por favor indícanos tu nombre para que podamos atenderte mejor.</p>
+                        <Input
+                          placeholder="Escribe tu nombre aquí"
+                          value={chatName}
+                          onChange={(e) => setChatName(e.target.value)}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <p>Por favor especifica cual es el problema con la orden en curso</p>
+                        <Textarea
+                          value={otherProblemDescription}
+                          onChange={(e) => setOtherProblemDescription(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </ScrollArea>
+                  <div className="p-6 border-t bg-background">
+                    <Button
+                      className="w-full"
+                      size="lg"
+                      disabled={!chatName || !otherProblemDescription}
+                    >
                       Chatear con soporte
                     </Button>
                   </div>
